@@ -183,6 +183,14 @@ section{padding:84px 0}
 .local-copy{columns:2;column-gap:40px;color:var(--muted);margin-top:26px;font-size:.96rem}
 .local-copy p{margin:0 0 1rem;break-inside:avoid}
 
+/* ---------- EMPREENDIMENTOS ---------- */
+.emp-card{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease}
+.emp-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--sage)}
+.emp-city{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber-600)}
+.emp-name{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--green-900);font-weight:600;margin:6px 0 4px;line-height:1.15}
+.emp-type{font-size:.9rem;color:var(--muted)}
+.emp-go{margin-top:16px;font-weight:700;color:var(--green-800);font-size:.9rem}
+
 /* ---------- DEPOIMENTOS ---------- */
 .tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .tst{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
@@ -310,14 +318,13 @@ footer.site a:hover{color:var(--amber)}
     </a>
     <nav class="menu" id="menu" aria-label="Menu principal">
       <a href="#imoveis">Imóveis</a>
-      <a href="#diferenciais">Por que nós</a>
-      <a href="#bairros">Bairros</a>
+      <a href="#empreendimentos">Empreendimentos</a>
+      <a href="#historia">Nossa história</a>
       <a href="#depoimentos">Depoimentos</a>
-      <a href="#faq">Dúvidas</a>
       <a href="#contato">Contato</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-wa btn-sm" id="headerWa" href="#" target="_blank" rel="noopener">
+      <a class="btn btn-wa btn-sm" id="headerWa" href="#">
         <span>WhatsApp</span>
       </a>
       <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
@@ -332,17 +339,16 @@ footer.site a:hover{color:var(--amber)}
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-inner">
     <div class="wrap">
-      <span class="eyebrow">Imóveis próprios · Negociação direta</span>
+      <span class="eyebrow">Desde 1994 · Tradição em Araras e região</span>
       <h1>O seu próximo endereço em <em>Araras</em> começa aqui.</h1>
-      <p class="lead">Apartamentos, casas, terrenos e lotes residenciais e industriais — vendidos direto pelo proprietário, sem intermediários e com condições que só quem é dono pode oferecer.</p>
+      <p class="lead">Apartamentos, casas, terrenos e lotes em Araras e região, de uma empresa com 32 anos de história e mais de 2.300 lotes vendidos. Atendemos você diretamente e também trabalhamos com corretores parceiros.</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap">
         <a class="btn btn-amber" href="#imoveis">Ver imóveis disponíveis</a>
-        <a class="btn btn-wa" id="heroWa" href="#" target="_blank" rel="noopener">Falar no WhatsApp agora</a>
       </div>
       <div class="hero-stats">
-        <div><div class="n" id="statCount">—</div><div class="l">imóveis próprios disponíveis</div></div>
-        <div><div class="n">0%</div><div class="l">de comissão de imobiliária</div></div>
-        <div><div class="n">Araras</div><div class="l">e região metropolitana</div></div>
+        <div><div class="n">32</div><div class="l">anos de história</div></div>
+        <div><div class="n">+2.300</div><div class="l">lotes vendidos</div></div>
+        <div><div class="n">Araras</div><div class="l">Rio Claro e Piracicaba</div></div>
       </div>
     </div>
   </div>
@@ -404,15 +410,54 @@ footer.site a:hover{color:var(--amber)}
 <section class="why" id="diferenciais">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Por que comprar com a gente</span>
-      <h2>Direto do proprietário. Sem surpresas.</h2>
-      <p>Somos donos dos imóveis que anunciamos. Isso muda tudo na hora de negociar.</p>
+      <span class="eyebrow">Por que a Gino Bolognesi</span>
+      <h2>Tradição que dá segurança à sua compra.</h2>
+      <p>São 32 anos de história e mais de 2.300 lotes vendidos em Araras, Rio Claro e Piracicaba.</p>
     </div>
     <div class="why-grid">
-      <div class="why-item"><div class="ico">%</div><h3>Sem comissão de terceiros</h3><p>Você negocia direto com quem é dono. O valor economizado fica no seu bolso.</p></div>
-      <div class="why-item"><div class="ico">⚡</div><h3>Resposta em minutos</h3><p>Nossa assistente virtual entende o que você procura e conecta com um corretor na hora.</p></div>
+      <div class="why-item"><div class="ico">🏆</div><h3>32 anos de tradição</h3><p>Uma trajetória de credibilidade no mercado imobiliário da região, com dezenas de empreendimentos entregues e valorizados.</p></div>
+      <div class="why-item"><div class="ico">🤝</div><h3>Corretores são bem-vindos</h3><p>Trabalhamos em parceria com corretores. Traga o seu cliente — atendemos juntos, com transparência e respeito.</p></div>
       <div class="why-item"><div class="ico">🔑</div><h3>Documentação em ordem</h3><p>Imóveis regularizados, prontos para financiamento, FGTS ou compra à vista.</p></div>
-      <div class="why-item"><div class="ico">📍</div><h3>Só Araras e região</h3><p>Conhecemos cada bairro. Ajudamos você a escolher o lugar certo para morar ou investir.</p></div>
+      <div class="why-item"><div class="ico">⚡</div><h3>Atendimento ágil</h3><p>Nossa assistente virtual entende o que você procura e te conecta a um corretor rapidamente.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ NOSSA HISTÓRIA ============================ -->
+<section id="historia" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Nossa história</span>
+      <h2>32 anos construindo Araras e região</h2>
+      <p>Fundada em 1994 e com sede em Araras-SP, a Gino Bolognesi Participações desenvolve empreendimentos residenciais e comerciais que se tornaram referência em qualidade de vida, segurança e valorização — em Araras, Rio Claro e Piracicaba.</p>
+    </div>
+    <p style="max-width:72ch;color:var(--muted);font-size:1.02rem;margin:-8px 0 30px">Ao longo dessa trajetória foram dezenas de loteamentos e condomínios entregues — muitos deles 100% vendidos — sempre com infraestrutura completa, áreas de lazer e planejamento voltado ao bem-estar das famílias. É essa história de credibilidade que sustenta cada novo lançamento e dá segurança a quem compra com a gente.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:860px">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center"><div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--green-900);font-weight:600">1994</div><div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">ano de fundação</div></div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center"><div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--green-900);font-weight:600">32</div><div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">anos de história</div></div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center"><div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--green-900);font-weight:600">+2.300</div><div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">lotes vendidos</div></div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center"><div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--green-900);font-weight:600">3</div><div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">cidades atendidas</div></div>
+    </div>
+    <p style="margin-top:26px"><a class="btn btn-ghost" href="https://ginobolognesi.com.br/" target="_blank" rel="noopener">Conheça o site institucional →</a></p>
+  </div>
+</section>
+
+<!-- ============================ EMPREENDIMENTOS ============================ -->
+<section id="empreendimentos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Empreendimentos</span>
+      <h2>Os condomínios onde temos imóveis</h2>
+      <p>Cada empreendimento tem seu próprio site, com fotos, plantas e infraestrutura. Clique para conhecer.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px">
+      <a class="emp-card" href="https://vistaararas.com.br/" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Vista Araras</div><div class="emp-type">Loteamento · lotes e casas</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://www.lagoaresidencial.com.br/" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Residencial Lagoa</div><div class="emp-type">Loteamento com clube e lago</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://www.brzempreendimentos.com/empreendimentos/portal-mirante-da-lagoa" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Portal Mirante da Lagoa</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://www.brzempreendimentos.com/empreendimentos/solar-dos-jacarandas" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Solar dos Jacarandás</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://brzempreendimentos.com/empreendimentos/portal-solar-das-mangabeiras" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Solar das Mangabeiras</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://ginobolognesi.com.br/residencial-plaza-alta" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Plaza Alta</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
+      <a class="emp-card" href="https://www.terrasdeartemis.com.br/" target="_blank" rel="noopener"><div class="emp-city">Piracicaba-SP</div><div class="emp-name">Terras de Ártemis</div><div class="emp-type">Loteamento</div><div class="emp-go">Visitar site →</div></a>
     </div>
   </div>
 </section>
@@ -443,7 +488,7 @@ footer.site a:hover{color:var(--amber)}
       <h2>Histórias de quem realizou o sonho em Araras</h2>
     </div>
     <div class="tst-grid">
-      <div class="tst"><div class="stars">★★★★★</div><p>“Comprei minha casa no Vista Araras direto com eles. Sem enrolação, sem comissão e com um preço que nenhuma imobiliária conseguiu igualar.”</p><div class="who"><span class="av">RM</span><div><b>Ricardo M.</b><small>Comprou casa · Vista Araras</small></div></div></div>
+      <div class="tst"><div class="stars">★★★★★</div><p>“Comprei minha casa no Vista Araras e fui muito bem atendido do começo ao fim. Empresa séria, com tradição na cidade. Recomendo!”</p><div class="who"><span class="av">RM</span><div><b>Ricardo M.</b><small>Comprou casa · Vista Araras</small></div></div></div>
       <div class="tst"><div class="stars">★★★★★</div><p>“O atendimento pelo WhatsApp foi rápido e objetivo. Em uma tarde já estava visitando o apartamento no Plaza Alta. Recomendo demais!”</p><div class="who"><span class="av">JS</span><div><b>Juliana S.</b><small>Comprou apartamento · Plaza Alta</small></div></div></div>
       <div class="tst"><div class="stars">★★★★★</div><p>“Aluguei um galpão na Anhanguera para minha empresa. Documentação impecável e negociação transparente do início ao fim.”</p><div class="who"><span class="av">AF</span><div><b>André F.</b><small>Locação industrial · SP-330</small></div></div></div>
     </div>
@@ -480,7 +525,7 @@ footer.site a:hover{color:var(--amber)}
     <div class="foot-grid">
       <div>
         <img src="data:image/png;base64,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" alt="Gino Bolognesi Participações" style="height:46px;width:auto;margin-bottom:16px">
-        <p style="max-width:36ch">Venda de imóveis próprios em Araras-SP: apartamentos, casas, terrenos e lotes residenciais e industriais. Negociação direta, direto com o proprietário.</p>
+        <p style="max-width:36ch">Empresa com 32 anos de história em Araras e região. Apartamentos, casas, terrenos e lotes residenciais, comerciais e industriais.</p>
       </div>
       <div>
         <h4>Imóveis</h4>
@@ -491,15 +536,15 @@ footer.site a:hover{color:var(--amber)}
       </div>
       <div>
         <h4>Institucional</h4>
-        <a href="#diferenciais">Por que comprar conosco</a>
-        <a href="#bairros">Bairros de Araras</a>
+        <a href="#empreendimentos">Empreendimentos</a>
+        <a href="#historia">Nossa história</a>
         <a href="#depoimentos">Depoimentos</a>
         <a href="#faq">Dúvidas frequentes</a>
+        <a href="https://ginobolognesi.com.br/" target="_blank" rel="noopener">Site institucional</a>
       </div>
       <div>
         <h4>Contato</h4>
         <a id="footWa" href="#" target="_blank" rel="noopener">WhatsApp: (19) 98177-2300</a>
-        <a id="footMail" href="mailto:contato@gbvendas.com.br">contato@gbvendas.com.br</a>
         <a href="#">Araras, São Paulo</a>
         <a href="#">CNPJ: 04.677.235/0001-73</a>
       </div>
@@ -546,7 +591,7 @@ footer.site a:hover{color:var(--amber)}
 const CONFIG = {
   empresa: "Gino Bolognesi Participações",
   whatsapp: "5519981772300",           // 55 + DDD 19 + 98177-2300
-  email: "contato@gbvendas.com.br",
+  email: "",
   dominio: "https://www.gbvendas.com.br",
   cidade: "Araras-SP"
 };
@@ -625,7 +670,7 @@ let IMOVEIS = IMOVEIS_FALLBACK;
 
 /* ===== 3) PERGUNTAS FREQUENTES (SEO) ===== */
 const FAQS = [
-  {q:"Vocês são uma imobiliária ou vendem imóveis próprios?", a:"Vendemos imóveis que são de nossa propriedade. Isso significa negociação direta com o dono, sem comissão de imobiliária e com mais flexibilidade nas condições de pagamento."},
+  {q:"A Gino Bolognesi é uma imobiliária?", a:"A Gino Bolognesi Participações é uma empresa com 32 anos de história que desenvolve e comercializa empreendimentos próprios em Araras e região. Atendemos você diretamente e também trabalhamos em parceria com corretores — se você tem um corretor de confiança, ele é bem-vindo."},
   {q:"Em quais condomínios de Araras vocês têm imóveis?", a:"Nossos imóveis residenciais ficam em condomínios fechados de Araras: lotes no Residencial Lagoa e no Vista Araras (que também tem casas), e apartamentos nos condomínios Plaza Alta, Mirante da Lagoa, Jacarandás e Mangabeiras. Também temos galpões industriais e áreas comerciais na Rodovia Anhanguera (SP-330)."},
   {q:"Os imóveis comerciais e industriais podem ser alugados?", a:"Sim. Os imóveis comerciais e industriais na Rodovia Anhanguera (SP-330) estão disponíveis para venda e também para locação. Fale com a gente para condições e valores atualizados."},
   {q:"Os imóveis aceitam financiamento e FGTS?", a:"Sim. A maioria dos imóveis residenciais está com a documentação regularizada e apta para financiamento bancário e uso do FGTS. Também trabalhamos com pagamento à vista e, em alguns casos, permuta."},
@@ -647,12 +692,10 @@ function imgFallback(el,titulo){ el.onerror=null; el.src=PLACE+encodeURIComponen
 
 /* ---- links de WhatsApp fixos ---- */
 const genericMsg = "Olá! Vim pelo site da "+CONFIG.empresa+" e gostaria de informações sobre os imóveis à venda em "+CONFIG.cidade+".";
-["headerWa","heroWa","ctaWa","footWa"].forEach(id=>{const e=document.getElementById(id); if(e) e.href=waLink(genericMsg);});
-document.getElementById("footMail").href="mailto:"+CONFIG.email;
+["ctaWa","footWa"].forEach(id=>{const e=document.getElementById(id); if(e) e.href=waLink(genericMsg);});
 document.getElementById("year").textContent=new Date().getFullYear();
-document.getElementById("statCount").textContent=IMOVEIS.length;
 // hero bg
-document.getElementById("heroBg").style.backgroundImage="url('https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1600&q=60')";
+document.getElementById("heroBg").style.backgroundImage="url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=60')";
 
 /* ---- filtros / estado ---- */
 let filtro = {tipo:"", bairro:"", preco:""};
@@ -791,31 +834,37 @@ let lead={}, step=0, started=false;
 
 const FLOW=[
   {msg:"Oi! Tudo bem? 😊 Aqui é a Lara, do time da Gino Bolognesi. Posso te ajudar a encontrar o imóvel certo aqui em Araras. Me conta rapidinho o que você procura que eu já deixo tudo encaminhado pro corretor. Podemos começar?",
-   opts:["Podemos sim!","Só quero falar com alguém"]},
+   opts:["Podemos sim!"]},
   {key:"tipo", msg:"Ótimo! Pra começar: você está procurando o quê?",
-   opts:["Apartamento","Casa","Lote pra construir","Comercial / industrial"]},
+   opts:["Apartamento","Casa","Lote pra construir","Comercial / industrial"],
+   react:v=>"Boa! Temos ótimas opções aqui. 👍"},
   {key:"objetivo", msg:"Entendi! E é mais pra:",
-   opts:["Morar","Investir","Construir","Uso da empresa"]},
+   opts:["Morar","Investir","Construir","Uso da empresa"],
+   react:v=>({"Morar":"Que delícia, nada como um cantinho pra chamar de seu! 🏡","Investir":"Excelente! Araras tem valorizado bastante. 📈","Construir":"Perfeito, temos lotes prontos pra construir. 🧱","Uso da empresa":"Show! Temos áreas ótimas na rodovia. 🏗️"}[v]||"Anotado!")},
   {key:"orcamento", msg:"Pra eu já separar as melhores opções, qual valor você tem em mente?",
-   opts:["Até R$ 300 mil","R$ 300 a 500 mil","R$ 500 mil a 1 mi","Acima de R$ 1 mi"]},
-  {key:"regiao", msg:"Tem algum condomínio ou região de preferência?",
-   opts:["Perto da Lagoa","Vista Araras","Outro condomínio","Na SP-330 (comercial)","Tanto faz"]},
+   opts:["Até R$ 300 mil","R$ 300 a 500 mil","R$ 500 mil a 1 mi","Acima de R$ 1 mi"],
+   react:v=>"Combinado, já sei o que te mostrar. 😊"},
+  {key:"tamanho", when:l=>l.tipo==="Comercial / industrial",
+   msg:"Qual o tamanho que você procura, em m²? (pode digitar, ex.: 5000)", input:true,
+   react:v=>"Anotado! 👍"},
+  {key:"regiao",
+   msg:l=> l.tipo==="Comercial / industrial" ? "E em qual região você prefere?" : "Legal! Em qual dos nossos empreendimentos você tem interesse?",
+   opts:l=>{
+     if(l.tipo==="Apartamento") return ["Plaza Alta","Mangabeiras","Jacarandás","Mirante da Lagoa"];
+     if(l.tipo==="Casa") return ["Vista Araras"];
+     if(l.tipo==="Lote pra construir") return ["Vista Araras","Residencial Lagoa"];
+     if(l.tipo==="Comercial / industrial") return ["Anhanguera (SP-330)","Outras"];
+     return ["Vista Araras","Residencial Lagoa","Plaza Alta","Mirante da Lagoa","Jacarandás","Mangabeiras","Anhanguera (SP-330)"];
+   },
+   react:v=>"Ótimo, boa pedida!"},
   {key:"pagamento", msg:"E como você pretende pagar?",
-   opts:["À vista","Financiamento","FGTS","Ainda estou vendo"]},
+   opts:["À vista","Financiamento","FGTS","Ainda estou vendo"],
+   react:v=>({"Financiamento":"Tranquilo! A maioria dos nossos imóveis aceita financiamento. ✅","FGTS":"Pode usar o FGTS sim, sem problema. ✅","À vista":"À vista a gente sempre consegue uma condição especial. 😉"}[v]||"Perfeito!")},
   {key:"prazo", msg:"Última coisinha 😉 pra quando você pensa em fechar negócio?",
-   opts:["O quanto antes","Nos próximos meses","Só pesquisando por enquanto"]},
+   opts:["O quanto antes","Nos próximos meses","Só pesquisando por enquanto"],
+   react:v=>"Entendido!"},
   {key:"nome", msg:"Perfeito, já tenho tudo o que preciso! Como é o seu nome?", input:true}
 ];
-const REACT=[
-  null,
-  v=>"Boa! Temos ótimas opções aqui. 👍",
-  v=>({"Morar":"Que delícia, nada como um cantinho pra chamar de seu! 🏡","Investir":"Excelente! Araras tem valorizado bastante. 📈","Construir":"Perfeito, temos lotes prontos pra construir. 🧱","Uso da empresa":"Show! Temos áreas ótimas na rodovia. 🏗️"}[v]||"Anotado!"),
-  v=>"Combinado, já sei o que te mostrar. 😊",
-  v=>"Ótimo, boa pedida!",
-  v=>({"Financiamento":"Tranquilo! A maioria dos nossos imóveis aceita financiamento. ✅","FGTS":"Pode usar o FGTS sim, sem problema. ✅","À vista":"À vista a gente sempre consegue uma condição especial. 😉"}[v]||"Perfeito!"),
-  v=>"Entendido!"
-];
-
 function botType(cb){
   const t=document.createElement("div");t.className="typing";t.innerHTML="<span></span><span></span><span></span>";
   body.appendChild(t);body.scrollTop=body.scrollHeight;
@@ -829,18 +878,23 @@ function askInput(){quick.innerHTML="";inputWrap.style.display="flex";input.focu
 
 function runStep(){
   const s=FLOW[step];
+  const msg = typeof s.msg==="function" ? s.msg(lead) : s.msg;
+  const opts = typeof s.opts==="function" ? s.opts(lead) : s.opts;
   botType(()=>{
-    addMsg(s.msg,"bot");
-    if(s.input) askInput(); else setQuick(s.opts);
+    addMsg(msg,"bot");
+    if(s.input) askInput(); else setQuick(opts);
   });
 }
 function answer(val){
   addMsg(val,"user");
   const s=FLOW[step];
-  if(step===0 && val==="Só quero falar com alguém"){ handoff(true); return; }
   if(s.key) lead[s.key]=val;
-  const r = REACT[step] ? REACT[step](val) : null;
-  const advance=()=>{ step++; if(step<FLOW.length) runStep(); else handoff(false); };
+  const r = s.react ? s.react(val) : null;
+  const advance=()=>{
+    step++;
+    while(step<FLOW.length && FLOW[step].when && !FLOW[step].when(lead)) step++;
+    if(step<FLOW.length) runStep(); else handoff(false);
+  };
   if(r){ botType(()=>{ addMsg(r,"bot"); advance(); }); } else { advance(); }
 }
 document.getElementById("chatSend").onclick=()=>{const v=input.value.trim();if(v){input.value="";answer(v);}};
@@ -860,6 +914,7 @@ function handoff(direct){
     if(lead.tipo)      resumo+="• Procuro: "+lead.tipo+"%0A";
     if(lead.objetivo)  resumo+="• Objetivo: "+lead.objetivo+"%0A";
     if(lead.orcamento) resumo+="• Orçamento: "+lead.orcamento+"%0A";
+    if(lead.tamanho)   resumo+="• Tamanho desejado: "+lead.tamanho+" m²%0A";
     if(lead.regiao)    resumo+="• Região: "+lead.regiao+"%0A";
     if(lead.pagamento) resumo+="• Pagamento: "+lead.pagamento+"%0A";
     if(lead.prazo)     resumo+="• Prazo: "+lead.prazo+"%0A";
@@ -878,6 +933,7 @@ function startChat(){
 }
 document.getElementById("assistLaunch").onclick=startChat;
 document.getElementById("ctaAssist").onclick=startChat;
+document.getElementById("headerWa").onclick=e=>{e.preventDefault();startChat();};
 document.getElementById("chatClose").onclick=()=>{chat.classList.remove("open");document.getElementById("assistLaunch").style.display="flex";};
 
 /* ============================================================= */
@@ -889,7 +945,8 @@ function injectJsonLd(){
     "@graph":[
       {"@type":"RealEstateAgent","@id":CONFIG.dominio+"/#org","name":CONFIG.empresa,
        "url":CONFIG.dominio,"image":CONFIG.dominio+"/capa.jpg","telephone":"+"+CONFIG.whatsapp,
-       "priceRange":"R$$","areaServed":{"@type":"City","name":"Araras","addressRegion":"SP","addressCountry":"BR"},
+       "foundingDate":"1994","sameAs":["https://ginobolognesi.com.br/","https://www.instagram.com/ginobolognesiempreendimentos/"],
+       "priceRange":"R$$","areaServed":[{"@type":"City","name":"Araras","addressRegion":"SP","addressCountry":"BR"},{"@type":"City","name":"Rio Claro","addressRegion":"SP"},{"@type":"City","name":"Piracicaba","addressRegion":"SP"}],
        "address":{"@type":"PostalAddress","addressLocality":"Araras","addressRegion":"SP","addressCountry":"BR"},
        "geo":{"@type":"GeoCoordinates","latitude":-22.357,"longitude":-47.384}},
       {"@type":"WebSite","@id":CONFIG.dominio+"/#site","url":CONFIG.dominio,"name":CONFIG.empresa,
