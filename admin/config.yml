@@ -1,0 +1,64 @@
+# ======================================================================
+#  CONFIGURAÇÃO DO PAINEL  —  edite só a linha "repo:" abaixo
+# ======================================================================
+backend:
+  name: github
+  repo: bolognesicaio-stack/gbvendas
+  branch: main
+
+# Pasta onde as fotos enviadas pelo painel ficam guardadas
+media_folder: "images/imoveis"
+public_folder: "/images/imoveis"
+
+# Idioma do painel
+locale: pt
+
+# Mensagens de commit amigáveis
+backend_commit_messages:
+  create: "Novo imóvel adicionado pelo painel"
+  update: "Imóvel atualizado pelo painel"
+  delete: "Imóvel removido pelo painel"
+  uploadMedia: "Foto enviada pelo painel"
+  deleteMedia: "Foto removida pelo painel"
+
+collections:
+  - name: "imoveis"
+    label: "Imóveis do site"
+    description: "Adicione, edite ou remova imóveis. As alterações aparecem no site em 1 a 2 minutos."
+    files:
+      - name: "lista"
+        label: "Lista de imóveis"
+        file: "data/imoveis.json"
+        fields:
+          - name: "imoveis"
+            label: "Imóveis"
+            label_singular: "Imóvel"
+            widget: "list"
+            collapsed: true
+            summary: "{{fields.titulo}}"
+            fields:
+              - { name: "titulo", label: "Título do anúncio", widget: "string", hint: "Ex.: Apartamento com 2 dormitórios no Plaza Alta" }
+              - name: "tipo"
+                label: "Tipo de imóvel"
+                widget: "select"
+                options:
+                  - { label: "Apartamento", value: "apartamento" }
+                  - { label: "Casa", value: "casa" }
+                  - { label: "Terreno / Lote", value: "terreno" }
+                  - { label: "Comercial / Industrial", value: "industrial" }
+              - { name: "bairro", label: "Condomínio / região", widget: "string", hint: "Ex.: Plaza Alta, Vista Araras, Rodovia Anhanguera (SP-330)" }
+              - { name: "codigo", label: "Código do imóvel", widget: "string", hint: "Uso interno. Ex.: AP-101" }
+              - { name: "preco", label: "Preço de venda (R$)", widget: "number", value_type: "int", min: 0, hint: "Somente números, sem pontos. Ex.: 420000" }
+              - { name: "quartos", label: "Dormitórios", widget: "number", value_type: "int", default: 0, required: false, hint: "Deixe 0 para terreno/comercial" }
+              - { name: "banheiros", label: "Banheiros", widget: "number", value_type: "int", default: 0, required: false }
+              - { name: "vagas", label: "Vagas de garagem", widget: "number", value_type: "int", default: 0, required: false }
+              - { name: "area", label: "Área (m²)", widget: "number", value_type: "int", default: 0, required: false }
+              - { name: "destaque", label: "Marcar como Destaque", widget: "boolean", default: false, required: false }
+              - name: "fotos"
+                label: "Fotos do imóvel"
+                label_singular: "Foto"
+                widget: "list"
+                summary: "Foto"
+                field: { name: "foto", label: "Foto", widget: "image" }
+              - { name: "video", label: "Link do vídeo do YouTube (opcional)", widget: "string", required: false, default: "", hint: "Cole o link no formato https://www.youtube.com/embed/CODIGO" }
+              - { name: "descricao", label: "Descrição completa", widget: "text" }

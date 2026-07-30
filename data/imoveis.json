@@ -1,0 +1,163 @@
+{
+  "imoveis": [
+    {
+      "codigo": "RL-LT01",
+      "tipo": "terreno",
+      "titulo": "Lote residencial no Residencial Lagoa",
+      "bairro": "Residencial Lagoa",
+      "preco": 225000,
+      "quartos": 0,
+      "banheiros": 0,
+      "vagas": 0,
+      "area": 300,
+      "destaque": true,
+      "fotos": [
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef",
+        "https://images.unsplash.com/photo-1449844908441-8829872d2607"
+      ],
+      "video": "",
+      "descricao": "Lote plano em condomínio fechado, com toda a infraestrutura pronta para construir: água, energia, asfalto e área de lazer. Segurança 24h e ambiente familiar. Excelente valorização."
+    },
+    {
+      "codigo": "VA-LT02",
+      "tipo": "terreno",
+      "titulo": "Lote em condomínio no Vista Araras",
+      "bairro": "Vista Araras",
+      "preco": 260000,
+      "quartos": 0,
+      "banheiros": 0,
+      "vagas": 0,
+      "area": 360,
+      "fotos": [
+        "https://images.unsplash.com/photo-1444927714506-8492d94b5ba0",
+        "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735"
+      ],
+      "video": "",
+      "descricao": "Lote em loteamento fechado de alto padrão, com portaria, segurança e área verde. Topografia plana, pronto para o projeto dos seus sonhos."
+    },
+    {
+      "codigo": "VA-CA01",
+      "tipo": "casa",
+      "titulo": "Casa de alto padrão no Vista Araras",
+      "bairro": "Vista Araras",
+      "preco": 890000,
+      "quartos": 3,
+      "banheiros": 4,
+      "vagas": 4,
+      "area": 260,
+      "destaque": true,
+      "fotos": [
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+      ],
+      "video": "",
+      "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, home office, piscina e área gourmet completa. Acabamento premium e pronta para morar."
+    },
+    {
+      "codigo": "PA-AP01",
+      "tipo": "apartamento",
+      "titulo": "Apartamento no Condomínio Plaza Alta",
+      "bairro": "Plaza Alta",
+      "preco": 420000,
+      "quartos": 3,
+      "banheiros": 2,
+      "vagas": 2,
+      "area": 88,
+      "fotos": [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+      ],
+      "video": "",
+      "descricao": "Apartamento amplo com 3 dormitórios (1 suíte), varanda e 2 vagas. Condomínio com lazer completo: piscina, academia e salão de festas. Ótima localização."
+    },
+    {
+      "codigo": "ML-AP01",
+      "tipo": "apartamento",
+      "titulo": "Apartamento com vista no Mirante da Lagoa",
+      "bairro": "Mirante da Lagoa",
+      "preco": 480000,
+      "quartos": 3,
+      "banheiros": 2,
+      "vagas": 2,
+      "area": 95,
+      "destaque": true,
+      "fotos": [
+        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+      ],
+      "video": "",
+      "descricao": "Apartamento com linda vista para a lagoa, 3 dormitórios com suíte, varanda gourmet e 2 vagas. Condomínio moderno com infraestrutura de lazer completa."
+    },
+    {
+      "codigo": "JA-AP01",
+      "tipo": "apartamento",
+      "titulo": "Apartamento no Residencial Jacarandás",
+      "bairro": "Jacarandás",
+      "preco": 350000,
+      "quartos": 2,
+      "banheiros": 1,
+      "vagas": 1,
+      "area": 62,
+      "fotos": [
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0"
+      ],
+      "video": "",
+      "descricao": "Apartamento pronto para morar com 2 dormitórios, cozinha planejada e lazer no condomínio. Excelente primeiro imóvel ou investimento. Aceita financiamento e FGTS."
+    },
+    {
+      "codigo": "MA-AP01",
+      "tipo": "apartamento",
+      "titulo": "Apartamento no Residencial Mangabeiras",
+      "bairro": "Mangabeiras",
+      "preco": 390000,
+      "quartos": 2,
+      "banheiros": 2,
+      "vagas": 1,
+      "area": 70,
+      "fotos": [
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+      ],
+      "video": "",
+      "descricao": "Apartamento com 2 suítes, sala ampla e varanda. Condomínio com piscina, playground e portaria 24h. Localização tranquila e bem conectada."
+    },
+    {
+      "codigo": "IN-330A",
+      "tipo": "industrial",
+      "titulo": "Galpão industrial na SP-330 — venda e locação",
+      "bairro": "Rodovia Anhanguera (SP-330)",
+      "preco": 2500000,
+      "quartos": 0,
+      "banheiros": 2,
+      "vagas": 12,
+      "area": 1500,
+      "destaque": true,
+      "fotos": [
+        "https://images.unsplash.com/photo-1553413077-190dd305871c",
+        "https://images.unsplash.com/photo-1581092160562-40aa08e78837"
+      ],
+      "video": "",
+      "descricao": "Galpão de 1.500 m² com pátio de manobra, doca de carga, escritório e energia trifásica. Localização estratégica com acesso direto à Rodovia Anhanguera (SP-330).\n\nDisponível para VENDA (R$ 2.500.000) ou LOCAÇÃO (R$ 18.000/mês). Ideal para logística, indústria ou distribuição."
+    },
+    {
+      "codigo": "CM-330B",
+      "tipo": "industrial",
+      "titulo": "Área comercial na SP-330 — venda e locação",
+      "bairro": "Rodovia Anhanguera (SP-330)",
+      "preco": 1200000,
+      "quartos": 0,
+      "banheiros": 2,
+      "vagas": 20,
+      "area": 800,
+      "fotos": [
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c"
+      ],
+      "video": "",
+      "descricao": "Imóvel comercial com ampla frente para a rodovia, ideal para showroom, loja, distribuidora ou serviços. Grande fluxo de veículos e estacionamento.\n\nDisponível para VENDA (R$ 1.200.000) ou LOCAÇÃO (R$ 9.500/mês)."
+    }
+  ]
+}
