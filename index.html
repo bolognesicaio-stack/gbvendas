@@ -190,6 +190,10 @@ section{padding:84px 0}
 .emp-name{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--green-900);font-weight:600;margin:6px 0 4px;line-height:1.15}
 .emp-type{font-size:.9rem;color:var(--muted)}
 .emp-go{margin-top:16px;font-weight:700;color:var(--green-800);font-size:.9rem}
+.bank-card{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease}
+.bank-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--sage)}
+.bank-name{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--green-900);font-weight:600;line-height:1.15}
+.bank-sub{font-size:.85rem;color:var(--muted);margin:5px 0 0}
 
 /* ---------- DEPOIMENTOS ---------- */
 .tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -319,6 +323,7 @@ footer.site a:hover{color:var(--amber)}
     <nav class="menu" id="menu" aria-label="Menu principal">
       <a href="#imoveis">Imóveis</a>
       <a href="#empreendimentos">Empreendimentos</a>
+      <a href="#financie">Financie</a>
       <a href="#historia">Nossa história</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#contato">Contato</a>
@@ -458,6 +463,31 @@ footer.site a:hover{color:var(--amber)}
       <a class="emp-card" href="https://brzempreendimentos.com/empreendimentos/portal-solar-das-mangabeiras" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Solar das Mangabeiras</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
       <a class="emp-card" href="https://ginobolognesi.com.br/residencial-plaza-alta" target="_blank" rel="noopener"><div class="emp-city">Araras-SP</div><div class="emp-name">Plaza Alta</div><div class="emp-type">Apartamentos</div><div class="emp-go">Visitar site →</div></a>
       <a class="emp-card" href="https://www.terrasdeartemis.com.br/" target="_blank" rel="noopener"><div class="emp-city">Piracicaba-SP</div><div class="emp-name">Terras de Ártemis</div><div class="emp-type">Loteamento</div><div class="emp-go">Visitar site →</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINANCIE ============================ -->
+<section id="financie" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Financiamento</span>
+      <h2>Financie o seu imóvel</h2>
+      <p>Simule o financiamento no banco da sua preferência. E conte com a nossa equipe para te orientar em cada etapa — do primeiro cálculo à assinatura do contrato.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <a class="bank-card" href="https://www8.caixa.gov.br/siopiinternet-web/simulaOperacaoInternet.do?method=inicializarCasoDeUso" target="_blank" rel="noopener"><div class="bank-name">Caixa Econômica</div><div class="bank-sub">Habitação · SBPE · Minha Casa Minha Vida</div><div class="emp-go">Simular agora →</div></a>
+      <a class="bank-card" href="https://www.itau.com.br/emprestimos-financiamentos/credito-imobiliario" target="_blank" rel="noopener"><div class="bank-name">Itaú</div><div class="bank-sub">Crédito imobiliário</div><div class="emp-go">Simular agora →</div></a>
+      <a class="bank-card" href="https://banco.bradesco/html/classic/produtos-servicos/emprestimo-e-financiamento/encontre-seu-credito/simuladores-imoveis.shtm" target="_blank" rel="noopener"><div class="bank-name">Bradesco</div><div class="bank-sub">Simulador de imóveis</div><div class="emp-go">Simular agora →</div></a>
+      <a class="bank-card" href="https://www.santander.com.br/atendimento-para-voce/simuladores/simulador-credito-imobiliario" target="_blank" rel="noopener"><div class="bank-name">Santander</div><div class="bank-sub">Crédito imobiliário</div><div class="emp-go">Simular agora →</div></a>
+      <a class="bank-card" href="https://cim-simulador-imovelproprio.apps.bb.com.br/simulacao-imobiliario/sobre-imovel" target="_blank" rel="noopener"><div class="bank-name">Banco do Brasil</div><div class="bank-sub">Financiamento imobiliário</div><div class="emp-go">Simular agora →</div></a>
+    </div>
+    <div style="margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+      <div style="max-width:56ch">
+        <strong style="color:var(--green-900);font-size:1.05rem">Trabalhamos com financiamento bancário, uso de FGTS e Minha Casa Minha Vida.</strong><br>
+        <span style="color:var(--muted);font-size:.95rem">Não sabe por onde começar? A gente te ajuda a escolher a melhor opção para o seu perfil.</span>
+      </div>
+      <button class="btn btn-wa" id="finAssist">Tirar dúvidas sobre financiamento</button>
     </div>
   </div>
 </section>
@@ -932,6 +962,7 @@ function startChat(){
 }
 document.getElementById("assistLaunch").onclick=startChat;
 document.getElementById("ctaWa").onclick=e=>{e.preventDefault();startChat();};
+document.getElementById("finAssist").onclick=startChat;
 document.getElementById("headerWa").onclick=e=>{e.preventDefault();startChat();};
 document.getElementById("chatClose").onclick=()=>{chat.classList.remove("open");document.getElementById("assistLaunch").style.display="flex";};
 
