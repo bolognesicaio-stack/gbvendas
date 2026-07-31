@@ -513,8 +513,7 @@ footer.site a:hover{color:var(--amber)}
     <h2>Vamos encontrar o seu imóvel ideal hoje?</h2>
     <p>Responda algumas perguntas rápidas para a nossa assistente virtual e seja conectado com um corretor especializado no seu perfil.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-amber" id="ctaAssist">Falar com a assistente</button>
-      <a class="btn btn-wa" id="ctaWa" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn btn-wa" id="ctaWa" href="#">Chamar no WhatsApp</a>
     </div>
   </div>
 </section>
@@ -692,7 +691,7 @@ function imgFallback(el,titulo){ el.onerror=null; el.src=PLACE+encodeURIComponen
 
 /* ---- links de WhatsApp fixos ---- */
 const genericMsg = "Olá! Vim pelo site da "+CONFIG.empresa+" e gostaria de informações sobre os imóveis à venda em "+CONFIG.cidade+".";
-["ctaWa","footWa"].forEach(id=>{const e=document.getElementById(id); if(e) e.href=waLink(genericMsg);});
+["footWa"].forEach(id=>{const e=document.getElementById(id); if(e) e.href=waLink(genericMsg);});
 document.getElementById("year").textContent=new Date().getFullYear();
 // hero bg
 document.getElementById("heroBg").style.backgroundImage="url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=60')";
@@ -932,7 +931,7 @@ function startChat(){
   if(!started){started=true;step=0;runStep();}
 }
 document.getElementById("assistLaunch").onclick=startChat;
-document.getElementById("ctaAssist").onclick=startChat;
+document.getElementById("ctaWa").onclick=e=>{e.preventDefault();startChat();};
 document.getElementById("headerWa").onclick=e=>{e.preventDefault();startChat();};
 document.getElementById("chatClose").onclick=()=>{chat.classList.remove("open");document.getElementById("assistLaunch").style.display="flex";};
 
