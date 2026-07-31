@@ -619,7 +619,8 @@ footer.site a:hover{color:var(--amber)}
 /* ===== 1) CONFIGURAÇÃO DA EMPRESA (troque pelos seus dados) ===== */
 const CONFIG = {
   empresa: "Gino Bolognesi Participações",
-  whatsapp: "5519981772300",           // 55 + DDD 19 + 98177-2300
+  whatsapp: "5519981772300",              // Corretor GERAL: casas, terrenos, comercial/industrial
+  whatsappApartamentos: "5519998638055",  // Corretor de APARTAMENTOS: (19) 99863-8055
   email: "",
   dominio: "https://www.gbvendas.com.br",
   cidade: "Araras-SP"
@@ -717,6 +718,8 @@ const tipoLabel = {apartamento:"Apartamento",casa:"Casa",terreno:"Terreno / Lote
 const PLACE = "https://placehold.co/800x600/DCE6DF/16342A?text=";
 
 function waLink(msg){ return "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg); }
+function corretorPara(tipo){ return tipo==="apartamento" ? CONFIG.whatsappApartamentos : CONFIG.whatsapp; }
+function waLinkFor(tipo,msg){ return "https://wa.me/"+corretorPara(tipo)+"?text="+encodeURIComponent(msg); }
 function imgFallback(el,titulo){ el.onerror=null; el.src=PLACE+encodeURIComponent(titulo.substring(0,24)); }
 
 /* ---- links de WhatsApp fixos ---- */
@@ -779,7 +782,7 @@ function render(){
       <div class="card-actions">
         <button class="btn btn-ghost btn-sm" data-ver="${im._i}">Ver detalhes</button>
         <a class="btn btn-wa btn-sm" target="_blank" rel="noopener"
-           href="${waLink("Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podem me passar mais informações?")}">WhatsApp</a>
+           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podem me passar mais informações?")}">WhatsApp</a>
       </div>`;
     g.appendChild(card);
   });
@@ -813,7 +816,7 @@ function openModal(id){
       <p class="modal-desc">${im.descricao}</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
         <a class="btn btn-wa" target="_blank" rel="noopener"
-           href="${waLink("Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podemos agendar uma visita?")}">Tenho interesse · WhatsApp</a>
+           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podemos agendar uma visita?")}">Tenho interesse · WhatsApp</a>
         <button class="btn btn-ghost" onclick="closeModal()">Voltar</button>
       </div>
     </div>`;
@@ -868,10 +871,24 @@ const FLOW=[
    opts:["Apartamento","Casa","Lote pra construir","Comercial / industrial"],
    react:v=>"Boa! Temos ótimas opções aqui. 👍"},
   {key:"objetivo", msg:"Entendi! E é mais pra:",
-   opts:["Morar","Investir","Construir","Uso da empresa"],
-   react:v=>({"Morar":"Que delícia, nada como um cantinho pra chamar de seu! 🏡","Investir":"Excelente! Araras tem valorizado bastante. 📈","Construir":"Perfeito, temos lotes prontos pra construir. 🧱","Uso da empresa":"Show! Temos áreas ótimas na rodovia. 🏗️"}[v]||"Anotado!")},
-  {key:"orcamento", msg:"Pra eu já separar as melhores opções, qual valor você tem em mente?",
-   opts:["Até R$ 300 mil","R$ 300 a 500 mil","R$ 500 mil a 1 mi","Acima de R$ 1 mi"],
+   opts:l=>{
+     if(l.tipo==="Apartamento") return ["Morar","Investir","Alugar"];
+     if(l.tipo==="Casa") return ["Morar","Investir"];
+     if(l.tipo==="Lote pra construir") return ["Investir","Construir"];
+     if(l.tipo==="Comercial / industrial") return ["Investir","Construir","Uso da empresa"];
+     return ["Morar","Investir","Construir","Uso da empresa"];
+   },
+   react:v=>({"Morar":"Que delícia, nada como um cantinho pra chamar de seu! 🏡","Investir":"Excelente! Araras tem valorizado bastante. 📈","Alugar":"Perfeito, temos boas opções para locação! 🔑","Construir":"Perfeito, temos lotes prontos pra construir. 🧱","Uso da empresa":"Show! Temos áreas ótimas na rodovia. 🏗️"}[v]||"Anotado!")},
+  {key:"orcamento",
+   msg:l=> (l.tipo==="Apartamento" && l.objetivo==="Alugar")
+     ? "Pra locação, qual faixa de aluguel você tem em mente?"
+     : "Pra eu já separar as melhores opções, qual valor você tem em mente?",
+   opts:l=>{
+     if(l.tipo==="Apartamento" && l.objetivo==="Alugar") return ["R$ 2 mil a R$ 5 mil","Acima de R$ 5 mil"];
+     if(l.tipo==="Casa") return ["R$ 1,5 a 3 milhões","Acima de R$ 3 milhões"];
+     if(l.tipo==="Comercial / industrial") return ["R$ 1 a 3 milhões","R$ 3 a 5 milhões","Mais de R$ 5 milhões"];
+     return ["Até R$ 300 mil","R$ 300 a 500 mil","R$ 500 mil a 1 mi","Acima de R$ 1 mi"];
+   },
    react:v=>"Combinado, já sei o que te mostrar. 😊"},
   {key:"tamanho", when:l=>l.tipo==="Comercial / industrial",
    msg:"Qual o tamanho que você procura, em m²? (pode digitar, ex.: 5000)", input:true,
@@ -886,8 +903,9 @@ const FLOW=[
      return ["Vista Araras","Residencial Lagoa","Plaza Alta","Mirante da Lagoa","Jacarandás","Mangabeiras","Anhanguera (SP-330)"];
    },
    react:v=>"Ótimo, boa pedida!"},
-  {key:"pagamento", msg:"E como você pretende pagar?",
-   opts:["À vista","Financiamento","FGTS","Ainda estou vendo"],
+  {key:"pagamento", when:l=> !(l.tipo==="Apartamento" && l.objetivo==="Alugar"),
+   msg:"E como você pretende pagar?",
+   opts:l=> l.tipo==="Comercial / industrial" ? ["À vista","Financiamento","Ainda estou vendo"] : ["À vista","Financiamento","FGTS","Ainda estou vendo"],
    react:v=>({"Financiamento":"Tranquilo! A maioria dos nossos imóveis aceita financiamento. ✅","FGTS":"Pode usar o FGTS sim, sem problema. ✅","À vista":"À vista a gente sempre consegue uma condição especial. 😉"}[v]||"Perfeito!")},
   {key:"prazo", msg:"Última coisinha 😉 pra quando você pensa em fechar negócio?",
    opts:["O quanto antes","Nos próximos meses","Só pesquisando por enquanto"],
@@ -949,7 +967,8 @@ function handoff(direct){
     if(lead.prazo)     resumo+="• Prazo: "+lead.prazo+"%0A";
     if(lead.nome)      resumo+="• Nome: "+lead.nome+"%0A";
     if(direct) resumo="Olá! Vim pelo site da "+CONFIG.empresa+" e gostaria de falar com um corretor.";
-    const link="https://wa.me/"+CONFIG.whatsapp+"?text="+resumo;
+    const numCorretor = (lead.tipo==="Apartamento") ? CONFIG.whatsappApartamentos : CONFIG.whatsapp;
+    const link="https://wa.me/"+numCorretor+"?text="+resumo;
     const b=document.createElement("button");
     b.className="btn btn-wa";b.style.margin="4px 18px 14px";b.textContent="Falar com o corretor no WhatsApp ➜";
     b.onclick=()=>window.open(link,"_blank");
