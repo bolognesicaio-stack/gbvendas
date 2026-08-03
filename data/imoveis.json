@@ -136,9 +136,11 @@
       "codigo": "IN-330A",
       "preco": 2500000,
       "quartos": 0,
+      "suites": null,
       "banheiros": 2,
       "vagas": 12,
       "area": 1500,
+      "areaConstruida": null,
       "destaque": true,
       "fotos": [
         "https://images.unsplash.com/photo-1553413077-190dd305871c",
@@ -148,15 +150,17 @@
       "descricao": "Galpão de 1.500 m² com pátio de manobra, doca de carga, escritório e energia trifásica. Localização estratégica com acesso direto à Rodovia Anhanguera (SP-330).\n\nDisponível para VENDA (R$ 2.500.000) ou LOCAÇÃO (R$ 18.000/mês). Ideal para logística, indústria ou distribuição."
     },
     {
-      "titulo": "Área comercial na SP-330 — venda e locação",
+      "titulo": "Área comercial na SP-330 — Venda",
       "tipo": "industrial",
       "bairro": "Rodovia Anhanguera (SP-330)",
       "codigo": "CM-330B",
-      "preco": 1200000,
-      "quartos": 0,
-      "banheiros": 2,
-      "vagas": 20,
-      "area": 800,
+      "preco": 330,
+      "quartos": null,
+      "suites": null,
+      "banheiros": null,
+      "vagas": null,
+      "area": 50000,
+      "areaConstruida": null,
       "fotos": [
         "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
         "https://images.unsplash.com/photo-1497366216548-37526070297c"
