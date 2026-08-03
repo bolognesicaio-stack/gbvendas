@@ -1,10 +1,10 @@
 {
   "imoveis": [
     {
-      "codigo": "RL-LT01",
-      "tipo": "terreno",
       "titulo": "Lote residencial no Residencial Lagoa",
+      "tipo": "terreno",
       "bairro": "Residencial Lagoa",
+      "codigo": "RL-LT01",
       "preco": 225000,
       "quartos": 0,
       "banheiros": 0,
@@ -19,10 +19,10 @@
       "descricao": "Lote plano em condomínio fechado, com toda a infraestrutura pronta para construir: água, energia, asfalto e área de lazer. Segurança 24h e ambiente familiar. Excelente valorização."
     },
     {
-      "codigo": "VA-LT02",
-      "tipo": "terreno",
       "titulo": "Lote em condomínio no Vista Araras",
+      "tipo": "terreno",
       "bairro": "Vista Araras",
+      "codigo": "VA-LT02",
       "preco": 260000,
       "quartos": 0,
       "banheiros": 0,
@@ -36,29 +36,31 @@
       "descricao": "Lote em loteamento fechado de alto padrão, com portaria, segurança e área verde. Topografia plana, pronto para o projeto dos seus sonhos."
     },
     {
-      "codigo": "VA-CA01",
-      "tipo": "casa",
       "titulo": "Casa de alto padrão no Vista Araras",
+      "tipo": "casa",
       "bairro": "Vista Araras",
-      "preco": 890000,
+      "codigo": "VA-CA01",
+      "preco": 2500000,
       "quartos": 3,
       "banheiros": 4,
-      "vagas": 4,
-      "area": 260,
+      "vagas": 2,
+      "area": 230,
       "destaque": true,
       "fotos": [
-        "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+        "/images/imoveis/CIRO_LOTE21_QUADRAI_FAC_01.png",
+        "/images/imoveis/CIRO_LOTE21_QUADRAI_LAZER_06 (ALTERADA).jpg",
+        "/images/imoveis/CIRO_LOTE21_QUADRAI_FAC_03.png",
+        "/images/imoveis/LIVING_Cena13.png",
+        "/images/imoveis/SUITE 03_Cena12.png"
       ],
       "video": "",
-      "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, home office, piscina e área gourmet completa. Acabamento premium e pronta para morar."
+      "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, home office, piscina e área gourmet completa. Acabamento premium e pronta para morar.\n\nProjeto Arquiteta Natália Sundfeld\n\n\n\nAT: 360 m2\n\nAC: 230 m2\n\n\n\n-02 vagas garagem coberta;\n\n-Escritório;\n\n-Sala de Estar/TV/Jantar e Cozinha Gourmet integrados;\n\n-Lavabo;\n\n-3 Suítes, sendo 1 com closet;\n\n-Área de Serviço;\n\n-Piscina com praia;\n\n-Banheiro externo e\n\n-Quarto de despejo."
     },
     {
-      "codigo": "PA-AP01",
-      "tipo": "apartamento",
       "titulo": "Apartamento no Condomínio Plaza Alta",
+      "tipo": "apartamento",
       "bairro": "Plaza Alta",
+      "codigo": "PA-AP01",
       "preco": 420000,
       "quartos": 3,
       "banheiros": 2,
@@ -73,10 +75,10 @@
       "descricao": "Apartamento amplo com 3 dormitórios (1 suíte), varanda e 2 vagas. Condomínio com lazer completo: piscina, academia e salão de festas. Ótima localização."
     },
     {
-      "codigo": "ML-AP01",
-      "tipo": "apartamento",
       "titulo": "Apartamento com vista no Mirante da Lagoa",
+      "tipo": "apartamento",
       "bairro": "Mirante da Lagoa",
+      "codigo": "ML-AP01",
       "preco": 480000,
       "quartos": 3,
       "banheiros": 2,
@@ -91,10 +93,10 @@
       "descricao": "Apartamento com linda vista para a lagoa, 3 dormitórios com suíte, varanda gourmet e 2 vagas. Condomínio moderno com infraestrutura de lazer completa."
     },
     {
-      "codigo": "JA-AP01",
-      "tipo": "apartamento",
       "titulo": "Apartamento no Residencial Jacarandás",
+      "tipo": "apartamento",
       "bairro": "Jacarandás",
+      "codigo": "JA-AP01",
       "preco": 350000,
       "quartos": 2,
       "banheiros": 1,
@@ -108,10 +110,10 @@
       "descricao": "Apartamento pronto para morar com 2 dormitórios, cozinha planejada e lazer no condomínio. Excelente primeiro imóvel ou investimento. Aceita financiamento e FGTS."
     },
     {
-      "codigo": "MA-AP01",
-      "tipo": "apartamento",
       "titulo": "Apartamento no Residencial Mangabeiras",
+      "tipo": "apartamento",
       "bairro": "Mangabeiras",
+      "codigo": "MA-AP01",
       "preco": 390000,
       "quartos": 2,
       "banheiros": 2,
@@ -125,10 +127,10 @@
       "descricao": "Apartamento com 2 suítes, sala ampla e varanda. Condomínio com piscina, playground e portaria 24h. Localização tranquila e bem conectada."
     },
     {
-      "codigo": "IN-330A",
-      "tipo": "industrial",
       "titulo": "Galpão industrial na SP-330 — venda e locação",
+      "tipo": "industrial",
       "bairro": "Rodovia Anhanguera (SP-330)",
+      "codigo": "IN-330A",
       "preco": 2500000,
       "quartos": 0,
       "banheiros": 2,
@@ -143,10 +145,10 @@
       "descricao": "Galpão de 1.500 m² com pátio de manobra, doca de carga, escritório e energia trifásica. Localização estratégica com acesso direto à Rodovia Anhanguera (SP-330).\n\nDisponível para VENDA (R$ 2.500.000) ou LOCAÇÃO (R$ 18.000/mês). Ideal para logística, indústria ou distribuição."
     },
     {
-      "codigo": "CM-330B",
-      "tipo": "industrial",
       "titulo": "Área comercial na SP-330 — venda e locação",
+      "tipo": "industrial",
       "bairro": "Rodovia Anhanguera (SP-330)",
+      "codigo": "CM-330B",
       "preco": 1200000,
       "quartos": 0,
       "banheiros": 2,
