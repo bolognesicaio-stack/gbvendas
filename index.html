@@ -245,10 +245,15 @@ footer.site a:hover{color:var(--amber)}
 .gallery iframe{width:100%;height:100%;min-height:300px;border:0}
 .modal-content{padding:30px}
 .modal-content .card-price{font-size:2rem}
-.spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0;padding:20px;background:var(--paper);border-radius:12px}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:14px;margin:22px 0;padding:20px;background:var(--paper);border-radius:12px}
 .spec-grid div{text-align:center}
 .spec-grid .v{font-family:'Fraunces';font-size:1.3rem;color:var(--green-900);font-weight:600}
 .spec-grid .k{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.caract{margin:24px 0 4px}
+.caract h4{font-family:'Manrope';font-weight:800;font-size:1rem;color:var(--green-900);margin:0 0 12px}
+.caract ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px}
+.caract li{font-size:.92rem;color:var(--ink);display:flex;align-items:center;gap:9px}
+.caract li::before{content:"✓";color:var(--amber-600);font-weight:800}
 .modal-content h3{font-size:1.5rem;margin:10px 0}
 .modal-desc{color:var(--muted);white-space:pre-line}
 
@@ -753,7 +758,8 @@ function specIcon(im){
   if(im.tipo==="terreno"||im.tipo==="industrial")
     return `<span title="Área">▣ ${im.area.toLocaleString('pt-BR')} m²</span>`+
            (im.vagas?`<span title="Vagas">🚛 ${im.vagas} vagas</span>`:"");
-  return `<span title="Dormitórios">🛏 ${im.quartos}</span><span title="Banheiros">🛁 ${im.banheiros}</span>`+
+  const suite = im.suites?` <small style="color:var(--muted)">(${im.suites} suíte${im.suites>1?'s':''})</small>`:"";
+  return `<span title="Dormitórios">🛏 ${im.quartos}${suite}</span><span title="Banheiros">🛁 ${im.banheiros}</span>`+
          `<span title="Vagas">🚗 ${im.vagas}</span><span title="Área">▣ ${im.area} m²</span>`;
 }
 function render(){
@@ -797,15 +803,26 @@ function openModal(id){
     : `<div class="main"><img src="${im.fotos[0]}?auto=format&fit=crop&w=1000&q=75" alt="${im.titulo}" onerror="imgFallback(this,'${im.titulo}')"></div>`;
   const sideImgs = im.fotos.slice(1,3).map(f=>`<img src="${f}?auto=format&fit=crop&w=600&q=70" alt="${im.titulo}" onerror="imgFallback(this,'${im.titulo}')">`).join("")
                    || `<img src="${im.fotos[0]}?auto=format&fit=crop&w=600&q=70" alt="${im.titulo}" onerror="imgFallback(this,'${im.titulo}')">`;
-  const specs = (im.tipo==="terreno"||im.tipo==="industrial")
-    ? `<div><div class="v">${im.area.toLocaleString('pt-BR')}</div><div class="k">m² de área</div></div>
-       ${im.vagas?`<div><div class="v">${im.vagas}</div><div class="k">vagas/docas</div></div>`:''}
-       <div><div class="v">${tipoLabel[im.tipo]}</div><div class="k">tipo</div></div>
-       <div><div class="v">${im.codigo}</div><div class="k">código</div></div>`
-    : `<div><div class="v">${im.quartos}</div><div class="k">dormitórios</div></div>
-       <div><div class="v">${im.banheiros}</div><div class="k">banheiros</div></div>
-       <div><div class="v">${im.vagas}</div><div class="k">vagas</div></div>
-       <div><div class="v">${im.area}</div><div class="k">m²</div></div>`;
+  const num = v => Number(v)||0;
+  const specItems = [];
+  if(im.tipo==="terreno"||im.tipo==="industrial"){
+    if(num(im.area)) specItems.push([im.area.toLocaleString('pt-BR'),"m² de área"]);
+    if(num(im.areaConstruida)) specItems.push([im.areaConstruida.toLocaleString('pt-BR'),"m² construídos"]);
+    if(num(im.vagas)) specItems.push([im.vagas,"vagas/docas"]);
+    specItems.push([tipoLabel[im.tipo],"tipo"]);
+    specItems.push([im.codigo,"código"]);
+  } else {
+    if(num(im.quartos)) specItems.push([im.quartos,"dormitórios"]);
+    if(num(im.suites)) specItems.push([im.suites,"suítes"]);
+    if(num(im.banheiros)) specItems.push([im.banheiros,"banheiros"]);
+    if(num(im.vagas)) specItems.push([im.vagas,"vagas"]);
+    if(num(im.area)) specItems.push([im.area.toLocaleString('pt-BR'),"m² terreno"]);
+    if(num(im.areaConstruida)) specItems.push([im.areaConstruida.toLocaleString('pt-BR'),"m² construídos"]);
+  }
+  const specs = specItems.map(([v,k])=>`<div><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+  const caract = (Array.isArray(im.caracteristicas) && im.caracteristicas.length)
+    ? `<div class="caract"><h4>Características e comodidades</h4><ul>${im.caracteristicas.map(c=>`<li>${c}</li>`).join("")}</ul></div>`
+    : "";
   document.getElementById("modalInner").innerHTML=`
     <div class="gallery">${galleryMedia}<div class="side">${sideImgs}</div></div>
     <div class="modal-content">
@@ -814,6 +831,7 @@ function openModal(id){
       <h3>${im.titulo}</h3>
       <div class="spec-grid">${specs}</div>
       <p class="modal-desc">${im.descricao}</p>
+      ${caract}
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
         <a class="btn btn-wa" target="_blank" rel="noopener"
            href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podemos agendar uma visita?")}">Tenho interesse · WhatsApp</a>
