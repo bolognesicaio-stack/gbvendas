@@ -42,9 +42,11 @@
       "codigo": "VA-CA01",
       "preco": 2500000,
       "quartos": 3,
+      "suites": 3,
       "banheiros": 4,
       "vagas": 2,
-      "area": 230,
+      "area": 360,
+      "areaConstruida": 230,
       "destaque": true,
       "fotos": [
         "/images/imoveis/CIRO_LOTE21_QUADRAI_FAC_01.png",
@@ -54,7 +56,8 @@
         "/images/imoveis/SUITE 03_Cena12.png"
       ],
       "video": "",
-      "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, home office, piscina e área gourmet completa. Acabamento premium e pronta para morar.\n\nProjeto Arquiteta Natália Sundfeld\n\n\n\nAT: 360 m2\n\nAC: 230 m2\n\n\n\n-02 vagas garagem coberta;\n\n-Escritório;\n\n-Sala de Estar/TV/Jantar e Cozinha Gourmet integrados;\n\n-Lavabo;\n\n-3 Suítes, sendo 1 com closet;\n\n-Área de Serviço;\n\n-Piscina com praia;\n\n-Banheiro externo e\n\n-Quarto de despejo."
+      "caracteristicas": [],
+      "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, piscina e área gourmet completa. \nAcabamento de alto padrão.\n\nAT: 360 m2\n\nAC: 230 m2\n\n\n-02 vagas garagem coberta;\n\n-Escritório;\n\n-Sala de Estar/TV/Jantar e Cozinha Gourmet integrados;\n\n-Lavabo;\n\n-3 Suítes, sendo 1 com closet;\n\n-Área de Serviço;\n\n-Piscina com praia;\n\n-Banheiro externo e -Quarto de despejo.\n\nProjeto Arquiteta Natália Sundfeld"
     },
     {
       "titulo": "Apartamento no Condomínio Plaza Alta",
