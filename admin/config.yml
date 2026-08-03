@@ -50,9 +50,11 @@ collections:
               - { name: "codigo", label: "Código do imóvel", widget: "string", hint: "Uso interno. Ex.: AP-101" }
               - { name: "preco", label: "Preço de venda (R$)", widget: "number", value_type: "int", min: 0, hint: "Somente números, sem pontos. Ex.: 420000" }
               - { name: "quartos", label: "Dormitórios", widget: "number", value_type: "int", default: 0, required: false, hint: "Deixe 0 para terreno/comercial" }
+              - { name: "suites", label: "Suítes", widget: "number", value_type: "int", default: 0, required: false, hint: "Dormitórios que têm banheiro próprio" }
               - { name: "banheiros", label: "Banheiros", widget: "number", value_type: "int", default: 0, required: false }
               - { name: "vagas", label: "Vagas de garagem", widget: "number", value_type: "int", default: 0, required: false }
-              - { name: "area", label: "Área (m²)", widget: "number", value_type: "int", default: 0, required: false }
+              - { name: "area", label: "Área total do terreno (m²)", widget: "number", value_type: "int", default: 0, required: false, hint: "Tamanho do terreno/lote" }
+              - { name: "areaConstruida", label: "Área construída (m²)", widget: "number", value_type: "int", default: 0, required: false, hint: "Área construída da casa/apartamento" }
               - { name: "destaque", label: "Marcar como Destaque", widget: "boolean", default: false, required: false }
               - name: "fotos"
                 label: "Fotos do imóvel"
@@ -61,4 +63,10 @@ collections:
                 summary: "Foto"
                 field: { name: "foto", label: "Foto", widget: "image" }
               - { name: "video", label: "Link do vídeo do YouTube (opcional)", widget: "string", required: false, default: "", hint: "Cole o link no formato https://www.youtube.com/embed/CODIGO" }
+              - name: "caracteristicas"
+                label: "Características e comodidades"
+                label_singular: "Característica"
+                widget: "list"
+                required: false
+                field: { name: "item", label: "Item", widget: "string", hint: "Ex.: Piscina, Churrasqueira, Portaria 24h, Academia, Salão de festas" }
               - { name: "descricao", label: "Descrição completa", widget: "text" }
