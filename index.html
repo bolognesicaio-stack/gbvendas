@@ -816,7 +816,7 @@ function openModal(id){
     if(num(im.suites)) specItems.push([im.suites,"suítes"]);
     if(num(im.banheiros)) specItems.push([im.banheiros,"banheiros"]);
     if(num(im.vagas)) specItems.push([im.vagas,"vagas"]);
-    if(num(im.area)) specItems.push([im.area.toLocaleString('pt-BR'),"m² terreno"]);
+    if(num(im.area)) specItems.push([im.area.toLocaleString('pt-BR'),im.tipo==="apartamento"?"m² área":"m² terreno"]);
     if(num(im.areaConstruida)) specItems.push([im.areaConstruida.toLocaleString('pt-BR'),"m² construídos"]);
   }
   const specs = specItems.map(([v,k])=>`<div><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
