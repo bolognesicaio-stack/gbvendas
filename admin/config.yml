@@ -1,72 +1,444 @@
 # ======================================================================
-#  CONFIGURAÇÃO DO PAINEL  —  edite só a linha "repo:" abaixo
+#  PAINEL DE IMÓVEIS — Gino Bolognesi Participações
+#  Formulário diferente para cada tipo de imóvel. Arquivo gerado; para
+#  mudar opções (condomínios, características), peça a alteração.
 # ======================================================================
 backend:
   name: github
   repo: bolognesicaio-stack/gbvendas
   branch: main
-
-# Pasta onde as fotos enviadas pelo painel ficam guardadas
-media_folder: "images/imoveis"
-public_folder: "/images/imoveis"
-
-# Idioma do painel
-locale: pt
-
-# Mensagens de commit amigáveis
-backend_commit_messages:
-  create: "Novo imóvel adicionado pelo painel"
-  update: "Imóvel atualizado pelo painel"
-  delete: "Imóvel removido pelo painel"
-  uploadMedia: "Foto enviada pelo painel"
-  deleteMedia: "Foto removida pelo painel"
-
+  commit_messages:
+    create: Novo imóvel adicionado pelo painel
+    update: Imóvel atualizado pelo painel
+    delete: Imóvel removido pelo painel
+    uploadMedia: Foto enviada pelo painel
+    deleteMedia: Foto removida pelo painel
+media_folder: images/imoveis
+public_folder: /images/imoveis
+media_libraries:
+  all:
+    transformations:
+      raster_image:
+        format: webp
+        quality: 80
+        width: 1600
+        height: 1600
 collections:
-  - name: "imoveis"
-    label: "Imóveis do site"
-    description: "Adicione, edite ou remova imóveis. As alterações aparecem no site em 1 a 2 minutos."
-    files:
-      - name: "lista"
-        label: "Lista de imóveis"
-        file: "data/imoveis.json"
+- name: imoveis
+  label: Imóveis do site
+  description: Clique em “Lista de imóveis”. Para anunciar, use Adicionar Imóvel e escolha o tipo. As alterações
+    aparecem no site em 1 a 2 minutos.
+  files:
+  - name: lista
+    label: Lista de imóveis
+    file: data/imoveis.json
+    fields:
+    - name: imoveis
+      label: Imóveis
+      label_singular: Imóvel
+      widget: list
+      collapsed: true
+      typeKey: tipo
+      types:
+      - name: apartamento
+        label: Apartamento
+        summary: 🏢 {{codigo}} · {{titulo}}
         fields:
-          - name: "imoveis"
-            label: "Imóveis"
-            label_singular: "Imóvel"
-            widget: "list"
-            collapsed: true
-            summary: "{{fields.titulo}}"
-            fields:
-              - { name: "titulo", label: "Título do anúncio", widget: "string", hint: "Ex.: Apartamento com 2 dormitórios no Plaza Alta" }
-              - name: "tipo"
-                label: "Tipo de imóvel"
-                widget: "select"
-                options:
-                  - { label: "Apartamento", value: "apartamento" }
-                  - { label: "Casa", value: "casa" }
-                  - { label: "Terreno / Lote", value: "terreno" }
-                  - { label: "Comercial / Industrial", value: "industrial" }
-              - { name: "bairro", label: "Condomínio / região", widget: "string", hint: "Ex.: Plaza Alta, Vista Araras, Rodovia Anhanguera (SP-330)" }
-              - { name: "codigo", label: "Código do imóvel", widget: "string", hint: "Uso interno. Ex.: AP-101" }
-              - { name: "preco", label: "Preço de venda (R$)", widget: "number", value_type: "int", min: 0, hint: "Somente números, sem pontos. Ex.: 420000" }
-              - { name: "quartos", label: "Dormitórios", widget: "number", value_type: "int", default: 0, required: false, hint: "Deixe 0 para terreno/comercial" }
-              - { name: "suites", label: "Suítes", widget: "number", value_type: "int", default: 0, required: false, hint: "Dormitórios que têm banheiro próprio" }
-              - { name: "banheiros", label: "Banheiros", widget: "number", value_type: "int", default: 0, required: false }
-              - { name: "vagas", label: "Vagas de garagem", widget: "number", value_type: "int", default: 0, required: false }
-              - { name: "area", label: "Área total do terreno (m²)", widget: "number", value_type: "int", default: 0, required: false, hint: "Tamanho do terreno/lote" }
-              - { name: "areaConstruida", label: "Área construída (m²)", widget: "number", value_type: "int", default: 0, required: false, hint: "Área construída da casa/apartamento" }
-              - { name: "destaque", label: "Marcar como Destaque", widget: "boolean", default: false, required: false }
-              - name: "fotos"
-                label: "Fotos do imóvel"
-                label_singular: "Foto"
-                widget: "list"
-                summary: "Foto"
-                field: { name: "foto", label: "Foto", widget: "image" }
-              - { name: "video", label: "Link do vídeo do YouTube (opcional)", widget: "string", required: false, default: "", hint: "Cole o link no formato https://www.youtube.com/embed/CODIGO" }
-              - name: "caracteristicas"
-                label: "Características e comodidades"
-                label_singular: "Característica"
-                widget: "list"
-                required: false
-                field: { name: "item", label: "Item", widget: "string", hint: "Ex.: Piscina, Churrasqueira, Portaria 24h, Academia, Salão de festas" }
-              - { name: "descricao", label: "Descrição completa", widget: "text" }
+        - name: titulo
+          label: Título do anúncio
+          widget: string
+          hint: 'Como vai aparecer no site. Ex.: Apartamento com 2 dormitórios no Plaza Alta'
+        - name: bairro
+          label: Condomínio / região
+          widget: select
+          options:
+          - Plaza Alta
+          - Mangabeiras
+          - Jacarandás
+          - Mirante da Lagoa
+        - name: codigo
+          label: Código do imóvel
+          widget: string
+          hint: 'Uso interno. Ex.: AP-101'
+        - name: preco
+          label: Preço de venda (R$)
+          widget: number
+          value_type: int
+          min: 0
+          hint: 'Só números, sem ponto nem vírgula. Ex.: 420000'
+        - name: quartos
+          label: Dormitórios
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+        - name: suites
+          label: Suítes
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: Dos dormitórios, quantos têm banheiro dentro do quarto
+        - name: banheiros
+          label: Banheiros
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: Conte também o lavabo
+        - name: vagas
+          label: Vagas de garagem
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+        - name: area
+          label: Área do apartamento (m²)
+          widget: number
+          value_type: int
+          min: 1
+          hint: 'Área privativa. Ex.: 88'
+        - name: fotos
+          label: Fotos do imóvel
+          label_singular: Foto
+          widget: list
+          min: 1
+          hint: A PRIMEIRA foto é a capa do anúncio. Arraste as fotos para mudar a ordem. O painel reduz o tamanho
+            das fotos sozinho.
+          field:
+            name: foto
+            label: Foto
+            widget: image
+        - name: descricao
+          label: Descrição completa
+          widget: text
+          hint: 'Conte o que torna o apartamento especial: andar, vista, acabamento, lazer. Parágrafos curtos.'
+        - name: caracteristicas
+          label: Características e comodidades
+          widget: select
+          multiple: true
+          required: false
+          dropdown_threshold: 40
+          options:
+          - Portaria 24h
+          - Elevador
+          - Piscina
+          - Academia
+          - Salão de festas
+          - Churrasqueira
+          - Playground
+          - Quadra esportiva
+          - Área gourmet
+          - Sacada / varanda
+          - Vaga coberta
+          - Câmeras de segurança
+          - Armários planejados
+          - Ar-condicionado
+          - Mobiliado
+          - Aceita pets
+          hint: Marque tudo o que o imóvel tem. O que não estiver na lista, escreva na descrição.
+        - name: video
+          label: Vídeo do YouTube (opcional)
+          widget: string
+          required: false
+          default: ''
+          hint: 'Deixe em branco se não houver. No YouTube: Compartilhar → Incorporar → copie só o endereço que
+            fica depois de src=. Formato: https://www.youtube.com/embed/CODIGO'
+          pattern:
+          - ^https://(www\.)?youtube(-nocookie)?\.com/embed/[A-Za-z0-9_-]+.*$
+          - 'Use o endereço de incorporação: https://www.youtube.com/embed/CODIGO'
+        - name: destaque
+          label: Destaque (selo ★ no anúncio)
+          widget: boolean
+          default: false
+          required: false
+      - name: casa
+        label: Casa
+        summary: 🏠 {{codigo}} · {{titulo}}
+        fields:
+        - name: titulo
+          label: Título do anúncio
+          widget: string
+          hint: 'Como vai aparecer no site. Ex.: Casa com 3 suítes no Vista Araras'
+        - name: bairro
+          label: Condomínio / região
+          widget: select
+          options:
+          - Vista Araras
+        - name: codigo
+          label: Código do imóvel
+          widget: string
+          hint: 'Uso interno. Ex.: AP-101'
+        - name: preco
+          label: Preço de venda (R$)
+          widget: number
+          value_type: int
+          min: 0
+          hint: 'Só números, sem ponto nem vírgula. Ex.: 420000'
+        - name: quartos
+          label: Dormitórios
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+        - name: suites
+          label: Suítes
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: Dos dormitórios, quantos têm banheiro dentro do quarto
+        - name: banheiros
+          label: Banheiros
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: Conte também o lavabo
+        - name: vagas
+          label: Vagas de garagem
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+        - name: area
+          label: Área do terreno (m²)
+          widget: number
+          value_type: int
+          min: 1
+          hint: 'Tamanho do terreno. Ex.: 360'
+        - name: areaConstruida
+          label: Área construída (m²)
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: 'Tamanho da casa. Ex.: 230'
+        - name: fotos
+          label: Fotos do imóvel
+          label_singular: Foto
+          widget: list
+          min: 1
+          hint: A PRIMEIRA foto é a capa do anúncio. Arraste as fotos para mudar a ordem. O painel reduz o tamanho
+            das fotos sozinho.
+          field:
+            name: foto
+            label: Foto
+            widget: image
+        - name: descricao
+          label: Descrição completa
+          widget: text
+          hint: 'Conte o que torna a casa especial: localização, acabamento, projeto, lazer. Parágrafos curtos.'
+        - name: caracteristicas
+          label: Características e comodidades
+          widget: select
+          multiple: true
+          required: false
+          dropdown_threshold: 40
+          options:
+          - Condomínio fechado
+          - Portaria 24h
+          - Piscina
+          - Churrasqueira
+          - Área gourmet
+          - Jardim
+          - Quintal
+          - Escritório
+          - Closet
+          - Armários planejados
+          - Ar-condicionado
+          - Energia solar
+          - Aquecimento solar
+          - Lareira
+          - Sauna
+          - Câmeras de segurança
+          hint: Marque tudo o que o imóvel tem. O que não estiver na lista, escreva na descrição.
+        - name: video
+          label: Vídeo do YouTube (opcional)
+          widget: string
+          required: false
+          default: ''
+          hint: 'Deixe em branco se não houver. No YouTube: Compartilhar → Incorporar → copie só o endereço que
+            fica depois de src=. Formato: https://www.youtube.com/embed/CODIGO'
+          pattern:
+          - ^https://(www\.)?youtube(-nocookie)?\.com/embed/[A-Za-z0-9_-]+.*$
+          - 'Use o endereço de incorporação: https://www.youtube.com/embed/CODIGO'
+        - name: destaque
+          label: Destaque (selo ★ no anúncio)
+          widget: boolean
+          default: false
+          required: false
+      - name: terreno
+        label: Terreno / Lote
+        summary: 🌳 {{codigo}} · {{titulo}}
+        fields:
+        - name: titulo
+          label: Título do anúncio
+          widget: string
+          hint: 'Como vai aparecer no site. Ex.: Lote residencial no Residencial Lagoa'
+        - name: bairro
+          label: Condomínio / região
+          widget: select
+          options:
+          - Vista Araras
+          - Residencial Lagoa
+        - name: codigo
+          label: Código do imóvel
+          widget: string
+          hint: 'Uso interno. Ex.: AP-101'
+        - name: preco
+          label: Preço de venda (R$)
+          widget: number
+          value_type: int
+          min: 0
+          hint: 'Só números, sem ponto nem vírgula. Ex.: 420000'
+        - name: area
+          label: Área do terreno (m²)
+          widget: number
+          value_type: int
+          min: 1
+          hint: 'Ex.: 300'
+        - name: fotos
+          label: Fotos do imóvel
+          label_singular: Foto
+          widget: list
+          min: 1
+          hint: A PRIMEIRA foto é a capa do anúncio. Arraste as fotos para mudar a ordem. O painel reduz o tamanho
+            das fotos sozinho.
+          field:
+            name: foto
+            label: Foto
+            widget: image
+        - name: descricao
+          label: Descrição completa
+          widget: text
+          hint: Fale da infraestrutura, do formato do lote e do condomínio. Parágrafos curtos.
+        - name: caracteristicas
+          label: Características e comodidades
+          widget: select
+          multiple: true
+          required: false
+          dropdown_threshold: 40
+          options:
+          - Condomínio fechado
+          - Portaria 24h
+          - Rua asfaltada
+          - Água
+          - Energia elétrica
+          - Rede de esgoto
+          - Terreno plano
+          - Em aclive
+          - Em declive
+          - Escritura / documentação em ordem
+          - Aceita financiamento
+          - Área de lazer no condomínio
+          hint: Marque tudo o que o imóvel tem. O que não estiver na lista, escreva na descrição.
+        - name: video
+          label: Vídeo do YouTube (opcional)
+          widget: string
+          required: false
+          default: ''
+          hint: 'Deixe em branco se não houver. No YouTube: Compartilhar → Incorporar → copie só o endereço que
+            fica depois de src=. Formato: https://www.youtube.com/embed/CODIGO'
+          pattern:
+          - ^https://(www\.)?youtube(-nocookie)?\.com/embed/[A-Za-z0-9_-]+.*$
+          - 'Use o endereço de incorporação: https://www.youtube.com/embed/CODIGO'
+        - name: destaque
+          label: Destaque (selo ★ no anúncio)
+          widget: boolean
+          default: false
+          required: false
+      - name: industrial
+        label: Comercial / Industrial
+        summary: 🏭 {{codigo}} · {{titulo}}
+        fields:
+        - name: titulo
+          label: Título do anúncio
+          widget: string
+          hint: 'Como vai aparecer no site. Ex.: Terreno industrial com acesso à Rodovia Anhanguera'
+        - name: bairro
+          label: Condomínio / região
+          widget: select
+          options:
+          - Rodovia Anhanguera (SP-330)
+        - name: codigo
+          label: Código do imóvel
+          widget: string
+          hint: 'Uso interno. Ex.: AP-101'
+        - name: preco
+          label: Preço (R$)
+          widget: number
+          value_type: int
+          min: 0
+          hint: Só números, sem ponto nem vírgula. Se for locação, informe o valor mensal.
+        - name: area
+          label: Área do terreno (m²)
+          widget: number
+          value_type: int
+          min: 1
+          hint: 'Ex.: 1500'
+        - name: areaConstruida
+          label: Área construída / galpão (m²)
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+          hint: Deixe 0 se for só terreno
+        - name: vagas
+          label: Vagas / docas de carga
+          widget: number
+          value_type: int
+          default: 0
+          required: false
+        - name: fotos
+          label: Fotos do imóvel
+          label_singular: Foto
+          widget: list
+          min: 1
+          hint: A PRIMEIRA foto é a capa do anúncio. Arraste as fotos para mudar a ordem. O painel reduz o tamanho
+            das fotos sozinho.
+          field:
+            name: foto
+            label: Foto
+            widget: image
+        - name: descricao
+          label: Descrição completa
+          widget: text
+          hint: Fale do acesso, da infraestrutura, do zoneamento e do que pode ser instalado. Parágrafos curtos.
+        - name: caracteristicas
+          label: Características e comodidades
+          widget: select
+          multiple: true
+          required: false
+          dropdown_threshold: 40
+          options:
+          - Acesso à Rodovia Anhanguera
+          - Terreno plano
+          - Terreno murado
+          - Energia trifásica
+          - Água
+          - Rede de esgoto
+          - Pé-direito alto
+          - Docas de carga
+          - Piso industrial
+          - Pátio de manobras
+          - Escritório
+          - Portaria / segurança
+          - Zoneamento industrial
+          - Escritura / documentação em ordem
+          hint: Marque tudo o que o imóvel tem. O que não estiver na lista, escreva na descrição.
+        - name: video
+          label: Vídeo do YouTube (opcional)
+          widget: string
+          required: false
+          default: ''
+          hint: 'Deixe em branco se não houver. No YouTube: Compartilhar → Incorporar → copie só o endereço que
+            fica depois de src=. Formato: https://www.youtube.com/embed/CODIGO'
+          pattern:
+          - ^https://(www\.)?youtube(-nocookie)?\.com/embed/[A-Za-z0-9_-]+.*$
+          - 'Use o endereço de incorporação: https://www.youtube.com/embed/CODIGO'
+        - name: destaque
+          label: Destaque (selo ★ no anúncio)
+          widget: boolean
+          default: false
+          required: false
