@@ -627,6 +627,7 @@ const CONFIG = {
   whatsapp: "5519981772300",              // Corretor GERAL: casas, terrenos, comercial/industrial
   whatsappApartamentos: "5519998638055",  // Corretor de APARTAMENTOS: (19) 99863-8055
   email: "",
+  leadsUrl: "",   // endereço do Google Apps Script que guarda os leads (planilha)
   dominio: "https://www.ginobolognesi.com.br",
   cidade: "Araras-SP"
 };
@@ -928,7 +929,8 @@ const FLOW=[
   {key:"prazo", msg:"Última coisinha 😉 pra quando você pensa em fechar negócio?",
    opts:["O quanto antes","Nos próximos meses","Só pesquisando por enquanto"],
    react:v=>"Entendido!"},
-  {key:"nome", msg:"Perfeito, já tenho tudo o que preciso! Como é o seu nome?", input:true}
+  {key:"nome", msg:"Perfeito, já tenho tudo o que preciso! Como é o seu nome?", input:true},
+  {key:"telefone", msg:"E qual o seu WhatsApp com DDD? Assim o corretor também consegue te retornar. (se preferir não informar, digite: pular)", input:true}
 ];
 function botType(cb){
   const t=document.createElement("div");t.className="typing";t.innerHTML="<span></span><span></span><span></span>";
@@ -950,10 +952,29 @@ function runStep(){
     if(s.input) askInput(); else setQuick(opts);
   });
 }
+const leadId = "L"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function corretorDoLead(){ return (lead.tipo==="Apartamento") ? "Apartamentos" : "Geral"; }
+function sendLead(status){
+  if(!CONFIG.leadsUrl) return;
+  try{
+    const payload=Object.assign({id:leadId,status:status,corretor:corretorDoLead(),pagina:location.href,ts:new Date().toISOString()},lead);
+    fetch(CONFIG.leadsUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
+  }catch(e){}
+}
 function answer(val){
+  quick.innerHTML="";inputWrap.style.display="none";
   addMsg(val,"user");
   const s=FLOW[step];
+  if(s.key==="telefone"){
+    const dig=String(val).replace(/\D/g,"");
+    if(/^\s*pular\s*$/i.test(val)){ val=""; }
+    else if(dig.length<10){
+      botType(()=>{ addMsg("Não consegui entender o número. Digite com DDD, por exemplo: 19 99999-9999, ou escreva: pular","bot"); askInput(); });
+      return;
+    } else { val=dig; }
+  }
   if(s.key) lead[s.key]=val;
+  if(s.key) sendLead(s.key==="telefone" ? "completo" : "parcial");
   const r = s.react ? s.react(val) : null;
   const advance=()=>{
     step++;
