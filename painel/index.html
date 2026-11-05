@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel de Imóveis · Gino Bolognesi</title>
+<style>
+:root{--navy:#102A47;--blue:#1D4980;--blue2:#356AA6;--paper:#F4F6FA;--card:#fff;--line:#E1E6EF;--ink:#132436;--muted:#57687C;--gold:#D1BE2A;--goldd:#A99917;--ok:#1E8E5A;--bad:#C0392B;--r:14px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink)}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+.hide{display:none!important}
+/* topo */
+header.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px;flex-wrap:wrap}
+header.top .brand{font-weight:700;letter-spacing:.2px;margin-right:auto}
+header.top .brand small{display:block;font-weight:400;opacity:.7;font-size:12px}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:600;background:#fff;color:var(--navy);transition:.15s}
+.btn:hover{filter:brightness(.94)}
+.btn.pri{background:var(--gold);color:var(--navy)}
+.btn.blue{background:var(--blue);color:#fff}
+.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn.line{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:#fff;color:var(--bad);border:1px solid #f0c4be}
+.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+main{max-width:1180px;margin:0 auto;padding:18px 16px 110px}
+/* login */
+.login{max-width:460px;margin:8vh auto;background:#fff;border-radius:var(--r);padding:28px;box-shadow:0 10px 40px rgba(16,42,71,.12)}
+.login h1{margin:0 0 6px;font-size:22px;color:var(--navy)}
+.login p{color:var(--muted);margin:6px 0 16px}
+.login input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:12px}
+.err{color:var(--bad);font-size:13px;margin:4px 0}
+/* barra de filtros */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools input[type=search]{flex:1;min-width:200px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13.5px;color:var(--muted)}
+.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.stats{color:var(--muted);font-size:13px;margin:0 0 10px}
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(16,42,71,.08);display:flex;flex-direction:column;border:1px solid transparent}
+.card.mod{border-color:var(--gold)}
+.card .ph{position:relative;aspect-ratio:4/3;background:#dfe5ee center/cover no-repeat}
+.card .ph .nofoto{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px}
+.tag{position:absolute;left:8px;top:8px;background:rgba(16,42,71,.85);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
+.star{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:18px;line-height:1;color:#b8b8b8}
+.star.on{color:var(--goldd)}
+.nph{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;border-radius:6px;padding:2px 7px}
+.card .bd{padding:12px 14px;flex:1}
+.card h3{margin:0 0 3px;font-size:15.5px;line-height:1.3}
+.card .meta{color:var(--muted);font-size:13px}
+.card .price{font-weight:700;color:var(--blue);margin-top:6px;font-size:16px}
+.card .ft{display:flex;gap:6px;padding:10px 12px;border-top:1px solid var(--line);align-items:center}
+.card .ft .sp{flex:1}
+.empty{background:#fff;border-radius:var(--r);padding:40px;text-align:center;color:var(--muted)}
+/* barra publicar */
+.pub{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy);color:#fff;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.pub b{color:var(--gold)}
+/* editor */
+.ov{position:fixed;inset:0;background:rgba(10,20,35,.55);z-index:50;display:flex;justify-content:flex-end}
+.panel{background:var(--paper);width:min(760px,100%);height:100%;overflow:auto;display:flex;flex-direction:column}
+.panel>.hd{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:10px;z-index:2}
+.panel>.hd h2{margin:0;font-size:18px;flex:1}
+.panel>.bd{padding:16px 18px 30px;flex:1}
+.panel>.ft{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:10px;justify-content:flex-end}
+.sec{background:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,42,71,.06)}
+.sec h4{margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--blue)}
+.f{margin-bottom:12px}
+.f label{display:block;font-weight:600;font-size:13.5px;margin-bottom:4px}
+.f .h{color:var(--muted);font-size:12.5px;margin-top:3px}
+.f input[type=text],.f input[type=url],.f select,.f textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.f textarea{min-height:170px;resize:vertical}
+.f.bad input,.f.bad select,.f.bad textarea{border-color:var(--bad)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.types button{background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px 8px;font-weight:600;font-size:15px}
+.types button.on{border-color:var(--blue);background:#EAF0FA;color:var(--blue)}
+.types button span{display:block;font-size:26px}
+.step{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.step button{border:0;background:#EEF2F8;width:42px;height:42px;font-size:20px;color:var(--blue)}
+.step input{flex:1;min-width:0;border:0;text-align:center;font-weight:700;font-size:16px;padding:8px 0;width:100%}
+.money{position:relative}
+.money:before{content:"R$";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600}
+.money input{padding-left:42px!important;font-weight:700;font-size:16px}
+.ck{display:flex;flex-wrap:wrap;gap:8px}
+.ck button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13.5px}
+.ck button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ck button.on:before{content:"✓ "}
+.drop{border:2px dashed #b9c6dc;border-radius:12px;padding:22px;text-align:center;color:var(--muted);background:#F8FAFD;cursor:pointer}
+.drop.over{border-color:var(--blue);background:#EAF0FA}
+.drop b{color:var(--blue)}
+.fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
+.ft1{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#dfe5ee center/cover;border:2px solid transparent;cursor:grab}
+.ft1.cover{border-color:var(--gold)}
+.ft1.drag{opacity:.4}
+.ft1 .cv{position:absolute;left:6px;top:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;border-radius:6px;padding:2px 7px}
+.ft1 .acts{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;padding:5px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.ft1 .acts button{border:0;border-radius:6px;background:rgba(255,255,255,.92);width:28px;height:26px;font-size:13px;padding:0}
+.sw{display:flex;align-items:center;gap:10px}
+.sw button{width:48px;height:28px;border-radius:999px;border:0;background:#c9d2e0;position:relative}
+.sw button:after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.15s}
+.sw button.on{background:var(--gold)}
+.sw button.on:after{left:23px}
+/* modal / toast */
+.modal{position:fixed;inset:0;background:rgba(10,20,35,.6);z-index:80;display:grid;place-items:center;padding:16px}
+.modal>div{background:#fff;border-radius:var(--r);padding:24px;max-width:430px;width:100%}
+.modal h3{margin:0 0 8px}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:10px;z-index:90;opacity:0;pointer-events:none;transition:.25s;max-width:90%}
+#toast.show{opacity:1}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:s 1s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes s{to{transform:rotate(360deg)}}
+.bar{height:8px;border-radius:6px;background:#e3e9f3;overflow:hidden;margin-top:14px}.bar i{display:block;height:100%;width:0;background:var(--blue);transition:.2s}
+@media(max-width:600px){header.top .brand small{display:none}.panel{width:100%}}
+</style>
+</head>
+<body>
+
+<div id="loginView" class="hide">
+  <div class="login">
+    <h1>Painel de imóveis</h1>
+    <p>Gino Bolognesi Participações. Entre com a chave de acesso (token) que você recebeu. Ela fica salva só neste aparelho.</p>
+    <input id="tokenIn" type="password" placeholder="Cole aqui a chave de acesso" autocomplete="off">
+    <div id="loginErr" class="err"></div>
+    <button class="btn blue" id="loginBtn" style="width:100%">Entrar</button>
+  </div>
+</div>
+
+<div id="appView" class="hide">
+  <header class="top">
+    <div class="brand">Painel de imóveis<small>Gino Bolognesi Participações</small></div>
+    <a class="btn ghost sm" href="/" target="_blank" rel="noopener" style="text-decoration:none">Ver o site ↗</a>
+    <button class="btn pri" id="newBtn">+ Novo imóvel</button>
+    <button class="btn ghost sm" id="logoutBtn">Sair</button>
+  </header>
+  <main>
+    <div class="tools">
+      <input type="search" id="q" placeholder="Buscar por título, código ou bairro…">
+      <div class="chips" id="typeChips"></div>
+    </div>
+    <p class="stats" id="stats"></p>
+    <div class="grid" id="grid"></div>
+  </main>
+  <div class="pub hide" id="pubBar">
+    <span><b id="pubN">0</b> alteração(ões) ainda não publicada(s) no site</span>
+    <button class="btn ghost sm" id="discardBtn">Descartar</button>
+    <button class="btn pri" id="pubBtn">Publicar no site</button>
+  </div>
+</div>
+
+<div id="editor"></div>
+<div id="modalHost"></div>
+<div id="toast"></div>
+
+<script>
+const REPO="bolognesicaio-stack/gbvendas", BRANCH="main", FILE="data/imoveis.json", IMGDIR="images/imoveis";
+const API="https://api.github.com/repos/"+REPO;
+const TYPES={
+  apartamento:{label:"Apartamento",icon:"🏢",pre:"AP",bairros:["Plaza Alta","Mangabeiras","Jacarandás","Mirante da Lagoa"],nums:["quartos","suites","banheiros","vagas","area"],areaLabel:"Área privativa (m²)",
+    car:["Portaria 24h","Elevador","Piscina","Academia","Salão de festas","Churrasqueira","Playground","Quadra esportiva","Área gourmet","Sacada / varanda","Vaga coberta","Câmeras de segurança","Armários planejados","Ar-condicionado","Mobiliado","Aceita pets"]},
+  casa:{label:"Casa",icon:"🏡",pre:"CA",bairros:["Vista Araras"],nums:["quartos","suites","banheiros","vagas","area","areaConstruida"],areaLabel:"Área do terreno (m²)",
+    car:["Condomínio fechado","Portaria 24h","Piscina","Churrasqueira","Área gourmet","Jardim","Quintal","Escritório","Closet","Armários planejados","Ar-condicionado","Energia solar","Aquecimento solar","Lareira","Sauna","Câmeras de segurança"]},
+  terreno:{label:"Terreno / Lote",icon:"🌳",pre:"LT",bairros:["Vista Araras","Residencial Lagoa"],nums:["area"],areaLabel:"Área do terreno (m²)",
+    car:["Condomínio fechado","Portaria 24h","Rua asfaltada","Água","Energia elétrica","Rede de esgoto","Terreno plano","Em aclive","Em declive","Escritura / documentação em ordem","Aceita financiamento","Área de lazer no condomínio"]},
+  industrial:{label:"Comercial / Industrial",icon:"🏭",pre:"IN",bairros:["Rodovia Anhanguera (SP-330)"],nums:["area","areaConstruida","vagas"],areaLabel:"Área do terreno (m²)",
+    car:["Acesso à Rodovia Anhanguera","Terreno plano","Terreno murado","Energia trifásica","Água","Rede de esgoto","Pé-direito alto","Docas de carga","Piso industrial","Pátio de manobras","Escritório","Portaria / segurança","Zoneamento industrial","Escritura / documentação em ordem"]}
+};
+const NUMLAB={quartos:"Dormitórios",suites:"Suítes",banheiros:"Banheiros",vagas:"Vagas de garagem",area:"Área (m²)",areaConstruida:"Área construída (m²)"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const brl=n=>"R$ "+Number(n||0).toLocaleString("pt-BR");
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+
+let S={token:null,items:[],baseSha:null,orig:"",pending:new Map(),filter:"todos",q:"",editing:null};
+let uid=0;
+
+/* ---------- GitHub ---------- */
+async function gh(path,opt={}){
+  const r=await fetch(API+path,Object.assign({},opt,{headers:Object.assign({Authorization:"Bearer "+S.token,Accept:"application/vnd.github+json"},opt.headers||{})}));
+  if(!r.ok){let m="";try{m=(await r.json()).message}catch(e){}const e=new Error(m||("Erro "+r.status));e.status=r.status;throw e}
+  return r.status===204?null:r.json();
+}
+const b64dec=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,"")),c=>c.charCodeAt(0)));
+const b64blob=blob=>new Promise((ok,no)=>{const f=new FileReader();f.onload=()=>ok(String(f.result).split(",")[1]);f.onerror=no;f.readAsDataURL(blob)});
+const utf8b64=s=>{const u=new TextEncoder().encode(s);let b="";u.forEach(c=>b+=String.fromCharCode(c));return btoa(b)};
+
+async function loadData(){
+  const j=await gh("/contents/"+FILE+"?ref="+BRANCH+"&t="+Date.now());
+  const d=JSON.parse(b64dec(j.content));
+  S.baseSha=j.sha;
+  S.items=(Array.isArray(d)?d:d.imoveis||[]).map(x=>Object.assign({},x,{__k:++uid}));
+  S.orig=serialize();
+  S.pending.clear();
+}
+function clean(x){const o=Object.assign({},x);delete o.__k;return o}
+function serialize(){return JSON.stringify({imoveis:S.items.map(clean)},null,2)+"\n"}
+function isDirty(){return serialize()!==S.orig}
+function changedCount(){
+  const o=JSON.parse(S.orig).imoveis, n=S.items.map(clean);
+  let c=0; const om=new Map(o.map(x=>[x.codigo+"|"+x.titulo,JSON.stringify(x)]));
+  n.forEach(x=>{if(om.get(x.codigo+"|"+x.titulo)!==JSON.stringify(x))c++});
+  c+=Math.max(0,o.length-n.filter(x=>om.has(x.codigo+"|"+x.titulo)).length);
+  if(!c&&isDirty())c=1; return c;
+}
+
+/* ---------- login ---------- */
+async function boot(){
+  const t=lsGet("gbp_token");
+  if(t){S.token=t;try{await start();return}catch(e){lsSet("gbp_token",null)}}
+  show("login");
+}
+function show(w){$("#loginView").classList.toggle("hide",w!=="login");$("#appView").classList.toggle("hide",w!=="app")}
+$("#loginBtn").onclick=async()=>{
+  const t=$("#tokenIn").value.trim(); if(!t){$("#loginErr").textContent="Cole a chave de acesso.";return}
+  S.token=t; $("#loginErr").textContent=""; $("#loginBtn").textContent="Entrando…";
+  try{
+    const r=await gh("");
+    if(!r.permissions||!r.permissions.push)throw new Error("Essa chave não tem permissão de edição.");
+    lsSet("gbp_token",t); await start();
+  }catch(e){S.token=null;$("#loginErr").textContent=e.status===401?"Chave inválida ou expirada.":e.message}
+  $("#loginBtn").textContent="Entrar";
+};
+$("#tokenIn").addEventListener("keydown",e=>{if(e.key==="Enter")$("#loginBtn").click()});
+$("#logoutBtn").onclick=()=>{if(isDirty()&&!confirm("Há alterações não publicadas. Sair mesmo assim?"))return;lsSet("gbp_token",null);location.reload()};
+async function start(){await loadData();show("app");render()}
+
+/* ---------- lista ---------- */
+function typeChips(){
+  const c={todos:S.items.length};S.items.forEach(i=>c[i.tipo]=(c[i.tipo]||0)+1);
+  $("#typeChips").innerHTML=[["todos","Todos"]].concat(Object.entries(TYPES).map(([k,v])=>[k,v.label])).map(([k,l])=>
+    `<button class="chip ${S.filter===k?"on":""}" data-f="${k}">${l} (${c[k]||0})</button>`).join("");
+}
+function photoUrl(p){return S.pending.has(p)?S.pending.get(p).url:p}
+function render(){
+  typeChips();
+  const q=S.q.toLowerCase().trim();
+  const list=S.items.filter(i=>(S.filter==="todos"||i.tipo===S.filter)&&(!q||[i.titulo,i.codigo,i.bairro].join(" ").toLowerCase().includes(q)));
+  const om=new Map(JSON.parse(S.orig).imoveis.map(x=>[x.codigo+"|"+x.titulo,JSON.stringify(x)]));
+  $("#stats").textContent=list.length+" imóvel(is) · "+S.items.filter(i=>i.destaque).length+" em destaque no site";
+  $("#grid").innerHTML=list.length?list.map(i=>{
+    const f=(i.fotos||[])[0], T=TYPES[i.tipo]||{label:i.tipo};
+    const mod=om.get(i.codigo+"|"+i.titulo)!==JSON.stringify(clean(i));
+    const canMove=S.filter==="todos"&&!q;
+    return `<div class="card ${mod?"mod":""}" data-k="${i.__k}">
+      <div class="ph" style="${f?`background-image:url('${esc(photoUrl(f))}')`:""}">
+        ${f?"":'<div class="nofoto">Sem foto</div>'}
+        <span class="tag">${esc(T.label)}</span>
+        <button class="star ${i.destaque?"on":""}" data-a="star" title="Destaque no site">★</button>
+        ${(i.fotos||[]).length?`<span class="nph">📷 ${i.fotos.length}</span>`:""}
+      </div>
+      <div class="bd"><h3>${esc(i.titulo)}</h3>
+        <div class="meta">${esc(i.codigo)} · ${esc(i.bairro)}${mod?" · <b style='color:#A99917'>alterado</b>":""}</div>
+        <div class="price">${brl(i.preco)}</div></div>
+      <div class="ft">
+        <button class="btn blue sm" data-a="edit">Editar</button>
+        <button class="btn line sm" data-a="dup" title="Duplicar">⧉</button>
+        ${canMove?`<button class="btn line sm" data-a="up" title="Mover para antes">◀</button><button class="btn line sm" data-a="down" title="Mover para depois">▶</button>`:""}
+        <span class="sp"></span>
+        <button class="btn danger sm" data-a="del" title="Excluir">🗑</button>
+      </div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Nenhum imóvel encontrado.${S.items.length?"":" Clique em “+ Novo imóvel” para começar."}</div>`;
+  const n=isDirty()?changedCount():0;
+  $("#pubBar").classList.toggle("hide",!n);$("#pubN").textContent=n;
+}
+$("#typeChips").onclick=e=>{const b=e.target.closest("[data-f]");if(b){S.filter=b.dataset.f;render()}};
+$("#q").oninput=e=>{S.q=e.target.value;render()};
+$("#newBtn").onclick=()=>openEditor(null);
+$("#grid").onclick=e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;
+  const k=+b.closest(".card").dataset.k, idx=S.items.findIndex(i=>i.__k===k), it=S.items[idx];
+  const a=b.dataset.a;
+  if(a==="edit")openEditor(it);
+  else if(a==="star"){it.destaque=!it.destaque;if(!it.destaque)delete it.destaque;render()}
+  else if(a==="dup"){const c=Object.assign({},JSON.parse(JSON.stringify(clean(it))),{__k:++uid,titulo:it.titulo+" (cópia)",codigo:it.codigo+"-2"});delete c.destaque;S.items.splice(idx+1,0,c);render();toast("Cópia criada. Clique em Editar para ajustar.")}
+  else if(a==="up"&&idx>0){[S.items[idx-1],S.items[idx]]=[S.items[idx],S.items[idx-1]];render()}
+  else if(a==="down"&&idx<S.items.length-1){[S.items[idx+1],S.items[idx]]=[S.items[idx],S.items[idx+1]];render()}
+  else if(a==="del")ask("Excluir este imóvel?","“"+it.titulo+"” será removido do site quando você publicar. Dá para desfazer em “Descartar” antes de publicar.","Excluir",()=>{S.items.splice(idx,1);render();toast("Imóvel excluído (ainda não publicado)")});
+};
+$("#discardBtn").onclick=()=>ask("Descartar alterações?","Tudo que você mudou desde a última publicação será desfeito.","Descartar",async()=>{await loadData();render();toast("Alterações descartadas")});
+window.addEventListener("beforeunload",e=>{if(S.token&&isDirty()){e.preventDefault();e.returnValue=""}});
+
+/* ---------- utilitários de UI ---------- */
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),3200)}
+function ask(title,msg,okLabel,fn){
+  const h=$("#modalHost");h.innerHTML=`<div class="modal"><div><h3>${esc(title)}</h3><div style="color:var(--muted)">${esc(msg)}</div><div class="acts"><button class="btn line" id="mNo">Cancelar</button><button class="btn blue" id="mOk">${esc(okLabel)}</button></div></div></div>`;
+  $("#mNo").onclick=()=>h.innerHTML="";$("#mOk").onclick=()=>{h.innerHTML="";fn()};
+}
+
+/* ---------- editor ---------- */
+let E=null; // {it, isNew, orig}
+function openEditor(it){
+  const isNew=!it;
+  E={isNew,it:isNew?{__k:++uid,tipo:"",titulo:"",bairro:"",codigo:"",preco:0,fotos:[],video:"",descricao:"",caracteristicas:[]}:JSON.parse(JSON.stringify(it)),ref:it,errs:{},pend:[]};
+  E.it.__k=isNew?E.it.__k:it.__k;
+  drawEditor();
+}
+function nextCode(tipo){
+  const pre=TYPES[tipo].pre;let mx=0;
+  S.items.forEach(i=>{const m=String(i.codigo||"").match(new RegExp("^"+pre+"-?(\\d+)$"));if(m)mx=Math.max(mx,+m[1])});
+  return pre+"-"+String(mx+1).padStart(3,"0");
+}
+function suggestTitle(){
+  const i=E.it,T=TYPES[i.tipo];if(!T)return"";
+  const n=(x,s,p)=>x>0?(x+" "+(x>1?p:s)):"";
+  if(i.tipo==="apartamento")return `Apartamento${i.quartos?" com "+n(i.quartos,"dormitório","dormitórios"):""} no ${i.bairro||"…"}`;
+  if(i.tipo==="casa")return `Casa${i.quartos?" com "+n(i.quartos,"dormitório","dormitórios"):""} no ${i.bairro||"…"}`;
+  if(i.tipo==="terreno")return `Lote${i.area?" de "+i.area+" m²":""} no ${i.bairro||"…"}`;
+  return `Área comercial/industrial${i.area?" de "+i.area+" m²":""} – ${i.bairro||"…"}`;
+}
+function bairroOpts(){
+  const T=TYPES[E.it.tipo]||{bairros:[]};
+  const set=new Set(T.bairros);S.items.filter(x=>x.tipo===E.it.tipo).forEach(x=>x.bairro&&set.add(x.bairro));
+  return [...set];
+}
+function drawEditor(keepScroll){
+  const i=E.it,T=TYPES[i.tipo],sc=document.querySelector("#editor .panel");const top=sc?sc.scrollTop:0;
+  const err=k=>E.errs[k]?`<div class="err">${E.errs[k]}</div>`:"";
+  const bo=T?bairroOpts():[];const outro=!!(i.bairro&&!bo.includes(i.bairro))||!!E.newBairro;
+  const sec=[];
+  sec.push(`<div class="sec"><h4>1 · Tipo de imóvel</h4><div class="types">${Object.entries(TYPES).map(([k,v])=>`<button data-type="${k}" class="${i.tipo===k?"on":""}"><span>${v.icon}</span>${v.label}</button>`).join("")}</div>${err("tipo")}</div>`);
+  if(T){
+    sec.push(`<div class="sec"><h4>2 · Informações principais</h4>
+      <div class="f ${E.errs.titulo?"bad":""}"><label>Título do anúncio</label><input type="text" data-f="titulo" value="${esc(i.titulo)}" placeholder="Ex.: ${esc(suggestTitle())}"><div class="h">Aparece no site e no Google. <a href="#" data-sug>Sugerir título</a></div>${err("titulo")}</div>
+      <div class="row">
+        <div class="f ${E.errs.bairro?"bad":""}"><label>Condomínio / região</label><select data-f="bairroSel">${bo.map(b=>`<option ${b===i.bairro&&!E.newBairro?"selected":""}>${esc(b)}</option>`).join("")}<option value="__novo" ${outro?"selected":""}>➕ Outro (digitar)</option>${!i.bairro&&!outro?'<option value="" selected disabled>Selecione…</option>':""}</select>${outro?`<input type="text" data-f="bairro" value="${esc(i.bairro)}" style="margin-top:6px" placeholder="Nome do condomínio / região">`:""}${err("bairro")}</div>
+        <div class="f"><label>Código (uso interno)</label><input type="text" data-f="codigo" value="${esc(i.codigo)}"></div>
+        <div class="f ${E.errs.preco?"bad":""}"><label>Preço de venda</label><div class="money"><input type="text" inputmode="numeric" data-f="preco" value="${i.preco?Number(i.preco).toLocaleString("pt-BR"):""}" placeholder="0"></div>${err("preco")}</div>
+      </div></div>`);
+    sec.push(`<div class="sec"><h4>3 · Medidas e cômodos</h4><div class="row">${T.nums.map(n=>`<div class="f ${E.errs[n]?"bad":""}"><label>${n==="area"?T.areaLabel:NUMLAB[n]}</label><div class="step"><button data-step="${n}:-1">−</button><input type="text" inputmode="numeric" data-f="${n}" value="${i[n]!=null?i[n]:0}"><button data-step="${n}:1">+</button></div>${err(n)}</div>`).join("")}</div></div>`);
+    sec.push(`<div class="sec"><h4>4 · Fotos</h4>
+      <div class="drop" id="drop"><b>Clique aqui ou arraste as fotos</b><br><span style="font-size:13px">Pode enviar várias de uma vez. A 1ª é a capa; arraste para mudar a ordem. O painel reduz o tamanho sozinho.</span><input type="file" id="file" accept="image/*" multiple class="hide"></div>
+      ${err("fotos")}
+      <div class="fotos" id="fotos">${(i.fotos||[]).map((p,ix)=>`<div class="ft1 ${ix===0?"cover":""}" draggable="true" data-ix="${ix}" style="background-image:url('${esc(photoUrl(p))}')">${ix===0?'<span class="cv">CAPA</span>':""}<div class="acts"><button data-ph="l:${ix}" title="Mover">◀</button>${ix>0?`<button data-ph="c:${ix}" title="Tornar capa">★</button>`:""}<button data-ph="r:${ix}" title="Mover">▶</button><button data-ph="x:${ix}" title="Remover" style="color:#C0392B">✕</button></div></div>`).join("")}</div></div>`);
+    sec.push(`<div class="sec"><h4>5 · Descrição</h4><div class="f ${E.errs.descricao?"bad":""}"><label>Descrição completa</label><textarea data-f="descricao" placeholder="Conte o que torna o imóvel especial: acabamento, vista, lazer, localização. Use parágrafos curtos.">${esc(i.descricao)}</textarea>${err("descricao")}</div>
+      <div class="f"><label>Características</label><div class="ck">${T.car.concat((i.caracteristicas||[]).filter(c=>!T.car.includes(c))).map(c=>`<button data-car="${esc(c)}" class="${(i.caracteristicas||[]).includes(c)?"on":""}">${esc(c)}</button>`).join("")}</div></div></div>`);
+    sec.push(`<div class="sec"><h4>6 · Extras</h4>
+      <div class="f"><label>Vídeo (opcional)</label><input type="url" data-f="video" value="${esc(i.video||"")}" placeholder="Cole o link do YouTube ou Vimeo"><div class="h">Pode colar o link normal do YouTube; o painel converte sozinho.</div>${err("video")}</div>
+      <div class="sw"><button data-dest class="${i.destaque?"on":""}"></button><div><b>Destaque no site</b><div class="h" style="margin:0">Mostra o selo “★ Destaque” e prioriza este imóvel.</div></div></div></div>`);
+  }
+  $("#editor").innerHTML=`<div class="ov"><div class="panel"><div class="hd"><h2>${E.isNew?"Novo imóvel":"Editar imóvel"}</h2><button class="btn line sm" data-close>✕ Fechar</button></div><div class="bd">${sec.join("")}</div><div class="ft"><button class="btn line" data-close>Cancelar</button><button class="btn blue" data-save>${E.isNew?"Adicionar à lista":"Salvar alterações"}</button></div></div></div>`;
+  const p=document.querySelector("#editor .panel");if(p&&keepScroll)p.scrollTop=top;
+  bindEditor();
+}
+function bindEditor(){
+  const ed=$("#editor");
+  ed.querySelectorAll("[data-close]").forEach(b=>b.onclick=closeEditor);
+  ed.querySelectorAll("[data-type]").forEach(b=>b.onclick=()=>{
+    const t=b.dataset.type,i=E.it;
+    if(i.tipo!==t){i.tipo=t;if(!TYPES[t].bairros.includes(i.bairro)&&!S.items.some(x=>x.tipo===t&&x.bairro===i.bairro))i.bairro=TYPES[t].bairros.length===1?TYPES[t].bairros[0]:"";
+      TYPES[t].nums.forEach(n=>{if(i[n]==null)i[n]=0});if(E.isNew&&!i.codigo)i.codigo=nextCode(t);
+      i.caracteristicas=(i.caracteristicas||[]).filter(c=>TYPES[t].car.includes(c))}
+    drawEditor(true)});
+  ed.querySelector("[data-sug]")&&(ed.querySelector("[data-sug]").onclick=e=>{e.preventDefault();E.it.titulo=suggestTitle();drawEditor(true)});
+  ed.querySelectorAll("input[data-f],textarea[data-f]").forEach(el=>{
+    el.oninput=()=>{const k=el.dataset.f,i=E.it;
+      if(k==="preco"){const n=+el.value.replace(/\D/g,"");i.preco=n;el.value=n?n.toLocaleString("pt-BR"):""}
+      else if(TYPES[i.tipo].nums.includes(k)){i[k]=+el.value.replace(/\D/g,"")||0}
+      else i[k]=el.value;
+      if(E.errs[k]){delete E.errs[k];el.closest(".f").classList.remove("bad");const er=el.closest(".f").querySelector(".err");er&&er.remove()}};
+    el.onblur=()=>{if(el.dataset.f==="video")el.value=E.it.video=embed(el.value)};
+  });
+  const bs=ed.querySelector("[data-f=bairroSel]");
+  bs&&(bs.onchange=()=>{if(bs.value==="__novo"){E.it.bairro="";E.newBairro=true;drawEditor(true);const x=ed.querySelector("input[data-f=bairro]");x&&x.focus()}else{E.it.bairro=bs.value;E.newBairro=false;delete E.errs.bairro;drawEditor(true)}});
+  ed.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{const[n,d]=b.dataset.step.split(":");E.it[n]=Math.max(0,(+E.it[n]||0)+ +d);b.parentElement.querySelector("input").value=E.it[n]});
+  ed.querySelectorAll("[data-car]").forEach(b=>b.onclick=()=>{const c=b.dataset.car,a=E.it.caracteristicas=E.it.caracteristicas||[];const x=a.indexOf(c);x>=0?a.splice(x,1):a.push(c);b.classList.toggle("on")});
+  const d=ed.querySelector("[data-dest]");d&&(d.onclick=()=>{E.it.destaque=!E.it.destaque;d.classList.toggle("on",!!E.it.destaque)});
+  const drop=$("#drop"),file=$("#file");
+  if(drop){
+    drop.onclick=()=>file.click();file.onchange=()=>addFiles([...file.files]);
+    ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over")}));
+    ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over")}));
+    drop.addEventListener("drop",e=>addFiles([...e.dataTransfer.files]));
+  }
+  ed.querySelectorAll("[data-ph]").forEach(b=>b.onclick=e=>{e.stopPropagation();const[a,ix]=b.dataset.ph.split(":"),f=E.it.fotos,n=+ix;
+    if(a==="x")f.splice(n,1);
+    else if(a==="c"){f.unshift(f.splice(n,1)[0])}
+    else if(a==="l"&&n>0)[f[n-1],f[n]]=[f[n],f[n-1]];
+    else if(a==="r"&&n<f.length-1)[f[n+1],f[n]]=[f[n],f[n+1]];
+    delete E.errs.fotos;drawEditor(true)});
+  let dragIx=null;
+  ed.querySelectorAll(".ft1").forEach(el=>{
+    el.ondragstart=e=>{dragIx=+el.dataset.ix;el.classList.add("drag");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain","x")};
+    el.ondragend=()=>el.classList.remove("drag");
+    el.ondragover=e=>{if(dragIx!=null)e.preventDefault()};
+    el.ondrop=e=>{if(dragIx==null)return;e.preventDefault();e.stopPropagation();const to=+el.dataset.ix,f=E.it.fotos;f.splice(to,0,f.splice(dragIx,1)[0]);dragIx=null;drawEditor(true)};
+  });
+  ed.querySelector("[data-save]").onclick=saveEditor;
+}
+function embed(u){
+  u=(u||"").trim();if(!u)return"";
+  let m=u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
+  if(m)return"https://www.youtube.com/embed/"+m[1];
+  m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/);if(m)return"https://player.vimeo.com/video/"+m[1];
+  return u;
+}
+function slug(s){return String(s||"imovel").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)||"imovel"}
+async function toWebp(file){
+  const bmp=await createImageBitmap(file,{imageOrientation:"from-image"}).catch(()=>null);
+  if(!bmp)throw new Error("formato não suportado");
+  const sc=Math.min(1,1600/Math.max(bmp.width,bmp.height)),c=document.createElement("canvas");
+  c.width=Math.round(bmp.width*sc);c.height=Math.round(bmp.height*sc);
+  c.getContext("2d").drawImage(bmp,0,0,c.width,c.height);
+  let b=await new Promise(r=>c.toBlob(r,"image/webp",.8));
+  if(!b||b.type!=="image/webp")b=await new Promise(r=>c.toBlob(r,"image/jpeg",.85));
+  return b;
+}
+async function addFiles(files){
+  files=files.filter(f=>f.type.startsWith("image/"));if(!files.length)return;
+  const drop=$("#drop");const old=drop.innerHTML;drop.innerHTML="<span class='spin' style='border-color:#b9c6dc;border-top-color:#1D4980'></span>Preparando fotos…";
+  let fail=0;
+  for(const f of files){
+    try{
+      const b=await toWebp(f),ext=b.type==="image/webp"?"webp":"jpg";
+      const pub="/"+IMGDIR+"/"+slug(E.it.codigo||E.it.titulo)+"-"+Date.now().toString(36)+Math.random().toString(36).slice(2,5)+"."+ext;
+      S.pending.set(pub,{blob:b,url:URL.createObjectURL(b)});E.it.fotos.push(pub);
+    }catch(e){fail++}
+  }
+  delete E.errs.fotos;drawEditor(true);
+  if(fail)toast(fail+" foto(s) não puderam ser lidas (use JPG ou PNG).");
+}
+function closeEditor(){
+  if(E&&JSON.stringify(clean(E.it))!==JSON.stringify(E.isNew?clean({tipo:"",titulo:"",bairro:"",codigo:"",preco:0,fotos:[],video:"",descricao:"",caracteristicas:[]}):clean(E.ref))&&E.it.tipo){
+    ask("Fechar sem salvar?","As mudanças deste imóvel serão perdidas.","Fechar sem salvar",()=>{$("#editor").innerHTML="";E=null});return}
+  $("#editor").innerHTML="";E=null;
+}
+function validate(){
+  const i=E.it,e={};
+  if(!i.tipo)e.tipo="Escolha o tipo do imóvel.";
+  else{
+    if(!i.titulo.trim())e.titulo="Informe o título.";
+    if(!String(i.bairro||"").trim())e.bairro="Informe o condomínio ou região.";
+    if(!(i.preco>0))e.preco="Informe o preço.";
+    if(!(i.area>0))e.area="Informe a área.";
+    if(!(i.fotos&&i.fotos.length))e.fotos="Adicione pelo menos 1 foto.";
+    if(!i.descricao.trim())e.descricao="Escreva a descrição.";
+    if(S.items.some(x=>x.__k!==i.__k&&x.codigo&&x.codigo===i.codigo))e.codigo="Já existe outro imóvel com este código.";
+  }
+  return e;
+}
+function saveEditor(){
+  const i=E.it;i.titulo=i.titulo.trim();i.bairro=String(i.bairro||"").trim();i.codigo=(i.codigo||"").trim()||nextCode(i.tipo||"apartamento");
+  i.video=embed(i.video);if(!i.video)i.video="";
+  E.errs=validate();
+  if(Object.keys(E.errs).length){drawEditor(true);const f=document.querySelector("#editor .bad,#editor .err");f&&f.scrollIntoView({block:"center",behavior:"smooth"});return}
+  if(!i.destaque)delete i.destaque;
+  const out=Object.assign({},i);
+  if(E.isNew)["quartos","suites","banheiros","vagas","area","areaConstruida"].forEach(n=>{if(!TYPES[i.tipo].nums.includes(n))delete out[n]});
+  if(E.isNew)S.items.unshift(out);else{const ix=S.items.findIndex(x=>x.__k===E.it.__k);S.items[ix]=out}
+  $("#editor").innerHTML="";E=null;render();toast("Salvo. Falta publicar para aparecer no site.");
+}
+
+/* ---------- publicar ---------- */
+$("#pubBtn").onclick=()=>ask("Publicar no site?","As alterações entram no ar em 1 a 2 minutos.","Publicar",publish);
+async function publish(){
+  const h=$("#modalHost");
+  const setP=(t,p)=>{h.innerHTML=`<div class="modal"><div><h3><span class="spin" style="border-color:#c9d2e0;border-top-color:#1D4980"></span>Publicando…</h3><div style="color:var(--muted)">${esc(t)}</div><div class="bar"><i style="width:${p}%"></i></div></div></div>`};
+  try{
+    setP("Conferindo o site…",5);
+    const cur=await gh("/contents/"+FILE+"?ref="+BRANCH+"&t="+Date.now());
+    if(cur.sha!==S.baseSha)throw new Error("OUTDATED");
+    const used=new Set();S.items.forEach(i=>(i.fotos||[]).forEach(p=>used.add(p)));
+    const ups=[...S.pending.entries()].filter(([p])=>used.has(p));
+    const ref=await gh("/git/ref/heads/"+BRANCH), commitSha=ref.object.sha;
+    const cm=await gh("/git/commits/"+commitSha);
+    const tree=[];let n=0;
+    for(const[p,o]of ups){
+      setP("Enviando foto "+(++n)+" de "+ups.length+"…",10+70*n/Math.max(1,ups.length));
+      const bl=await gh("/git/blobs",{method:"POST",body:JSON.stringify({content:await b64blob(o.blob),encoding:"base64"})});
+      tree.push({path:p.replace(/^\//,""),mode:"100644",type:"blob",sha:bl.sha});
+    }
+    setP("Salvando a lista de imóveis…",85);
+    const jb=await gh("/git/blobs",{method:"POST",body:JSON.stringify({content:serialize(),encoding:"utf-8"})});
+    tree.push({path:FILE,mode:"100644",type:"blob",sha:jb.sha});
+    const nt=await gh("/git/trees",{method:"POST",body:JSON.stringify({base_tree:cm.tree.sha,tree})});
+    const msg="Painel: "+changedCount()+" imóvel(is) atualizado(s)"+(ups.length?" · "+ups.length+" foto(s)":"");
+    const nc=await gh("/git/commits",{method:"POST",body:JSON.stringify({message:msg,tree:nt.sha,parents:[commitSha]})});
+    await gh("/git/refs/heads/"+BRANCH,{method:"PATCH",body:JSON.stringify({sha:nc.sha})});
+    setP("Finalizando…",97);
+    await loadData();render();
+    h.innerHTML=`<div class="modal"><div><h3>✅ Publicado!</h3><div style="color:var(--muted)">As mudanças aparecem no site em 1 a 2 minutos. Se não aparecer, atualize a página do site (Ctrl+F5).</div><div class="acts"><a class="btn line" href="/" target="_blank" rel="noopener" style="text-decoration:none">Abrir o site</a><button class="btn blue" id="okp">Ok</button></div></div></div>`;
+    $("#okp").onclick=()=>h.innerHTML="";
+  }catch(e){
+    const out=e.message==="OUTDATED";
+    h.innerHTML=`<div class="modal"><div><h3>${out?"A lista mudou":"Não foi possível publicar"}</h3><div style="color:var(--muted)">${out?"Outra pessoa alterou a lista de imóveis enquanto você editava. Para não perder o trabalho dela, recarregue a lista e refaça suas alterações.":esc(e.message)}</div><div class="acts">${out?'<button class="btn blue" id="rl">Recarregar lista</button>':'<button class="btn blue" id="okp">Ok</button>'}</div></div></div>`;
+    if(out)$("#rl").onclick=async()=>{await loadData();render();h.innerHTML=""};else $("#okp").onclick=()=>h.innerHTML="";
+  }
+}
+boot();
+</script>
+</body>
+</html>
