@@ -718,6 +718,17 @@ const FAQS = [
 const fmt = v => v>=1000000 ? "R$ "+(v/1000000).toLocaleString('pt-BR',{maximumFractionDigits:2})+" mi"
                 : "R$ "+v.toLocaleString('pt-BR');
 const fmtFull = v => "R$ "+v.toLocaleString('pt-BR');
+/* finalidade: "venda" (padrão), "locacao" ou "ambos". preco = venda; precoLocacao = aluguel por mês */
+const finalidade = im => im.finalidade==="locacao"||im.finalidade==="ambos" ? im.finalidade : "venda";
+const temVenda = im => finalidade(im)!=="locacao" && im.preco>0;
+function precoTxt(im){
+  const f=finalidade(im), v=im.preco>0?fmtFull(im.preco):"", a=im.precoLocacao>0?fmtFull(im.precoLocacao)+"/mês":"";
+  if(f==="locacao") return a||"Sob consulta";
+  if(f==="ambos") return v&&a ? v+' <small style="font-weight:500">· ou '+a+'</small>' : (v||a||"Sob consulta");
+  return v||"Sob consulta";
+}
+const precoPlain = im => precoTxt(im).replace(/<[^>]+>/g,"");
+const finalLabel = im => ({venda:"à venda",locacao:"para locação",ambos:"à venda e locação"})[finalidade(im)];
 const tipoLabel = {apartamento:"Apartamento",casa:"Casa",terreno:"Terreno / Lote",industrial:"Industrial"};
 const PLACE = "https://placehold.co/800x600/DCE6DF/16342A?text=";
 
@@ -766,20 +777,20 @@ function render(){
   const list=IMOVEIS.filter(i=>
     (!filtro.tipo||i.tipo===filtro.tipo)&&
     (!filtro.bairro||i.bairro===filtro.bairro)&&
-    (!filtro.preco||i.preco<=+filtro.preco));
+    (!filtro.preco||(temVenda(i)&&i.preco<=+filtro.preco)));
   g.innerHTML = list.length ? "" : '<div class="empty">Nenhum imóvel encontrado com esses filtros. Fale com a gente no WhatsApp que buscamos uma opção para você.</div>';
   list.forEach(im=>{
     const card=document.createElement("article");card.className="card";
     card.innerHTML=`
       <div class="card-img">
-        <img loading="lazy" src="${im.fotos[0]}?auto=format&fit=crop&w=800&q=70" alt="${tipoLabel[im.tipo]} à venda em ${im.bairro}, Araras-SP — ${im.titulo}" onerror="imgFallback(this,'${im.titulo}')">
-        <span class="badge">${tipoLabel[im.tipo]}</span>
+        <img loading="lazy" src="${im.fotos[0]}?auto=format&fit=crop&w=800&q=70" alt="${tipoLabel[im.tipo]} ${finalLabel(im)} em ${im.bairro}, Araras-SP — ${im.titulo}" onerror="imgFallback(this,'${im.titulo}')">
+        <span class="badge">${tipoLabel[im.tipo]}${finalidade(im)==="locacao"?" · Locação":finalidade(im)==="ambos"?" · Venda e locação":""}</span>
         ${im.destaque?'<span class="badge dest">★ Destaque</span>':''}
         ${im.video?'<span class="vid-flag">▶ Vídeo</span>':''}
       </div>
       <div class="card-body">
         <span class="card-code">CÓD. ${im.codigo}</span>
-        <div class="card-price">${fmtFull(im.preco)}</div>
+        <div class="card-price">${precoTxt(im)}</div>
         <div class="card-title">${im.titulo}</div>
         <div class="card-loc">📍 ${im.bairro}, Araras-SP</div>
         <div class="card-specs">${specIcon(im)}</div>
@@ -787,7 +798,7 @@ function render(){
       <div class="card-actions">
         <button class="btn btn-ghost btn-sm" data-ver="${im._i}">Ver detalhes</button>
         <a class="btn btn-wa btn-sm" target="_blank" rel="noopener"
-           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podem me passar mais informações?")}">WhatsApp</a>
+           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+precoPlain(im)+"). Podem me passar mais informações?")}">WhatsApp</a>
       </div>`;
     g.appendChild(card);
   });
@@ -826,14 +837,14 @@ function openModal(id){
     <div class="gallery">${galleryMedia}<div class="side">${sideImgs}</div></div>
     <div class="modal-content">
       <span class="card-code">CÓD. ${im.codigo} · ${im.bairro}, Araras-SP</span>
-      <div class="card-price">${fmtFull(im.preco)}</div>
+      <div class="card-price">${precoTxt(im)}</div>
       <h3>${im.titulo}</h3>
       <div class="spec-grid">${specs}</div>
       <p class="modal-desc">${im.descricao}</p>
       ${caract}
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
         <a class="btn btn-wa" target="_blank" rel="noopener"
-           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+fmtFull(im.preco)+"). Podemos agendar uma visita?")}">Tenho interesse · WhatsApp</a>
+           href="${waLinkFor(im.tipo,"Olá! Tenho interesse no imóvel "+im.codigo+" — "+im.titulo+" ("+precoPlain(im)+"). Podemos agendar uma visita?")}">Tenho interesse · WhatsApp</a>
         <button class="btn btn-ghost" onclick="closeModal()">Voltar</button>
       </div>
     </div>`;
@@ -1042,7 +1053,7 @@ function injectJsonLd(){
       {"@type":"ItemList","itemListElement":IMOVEIS.map((im,idx)=>({"@type":"ListItem","position":idx+1,
         "item":{"@type":"Product","name":im.titulo,"sku":im.codigo,
           "description":im.descricao,"image":im.fotos[0],
-          "offers":{"@type":"Offer","price":im.preco,"priceCurrency":"BRL","availability":"https://schema.org/InStock",
+          "offers":{"@type":"Offer","businessFunction":finalidade(im)==="locacao"?"http://purl.org/goodrelations/v1#LeaseOut":"http://purl.org/goodrelations/v1#Sell",...((finalidade(im)==="locacao"?im.precoLocacao:im.preco)>0?{"price":finalidade(im)==="locacao"?im.precoLocacao:im.preco}:{}),"priceCurrency":"BRL","availability":"https://schema.org/InStock",
             "areaServed":im.bairro+", Araras-SP"}}}))}
     ]
   };
