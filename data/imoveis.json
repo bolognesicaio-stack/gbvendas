@@ -169,9 +169,16 @@
         "https://images.unsplash.com/photo-1560185007-cde436f6a4d0"
       ],
       "descricao": "Apartamento pronto para morar com 2 dormitórios, cozinha planejada e lazer no condomínio. Excelente primeiro imóvel ou investimento. Aceita financiamento e FGTS.",
-      "caracteristicas": [],
+      "caracteristicas": [
+        "Portaria 24h",
+        "Elevador",
+        "Piscina",
+        "Academia",
+        "Salão de festas"
+      ],
       "video": "",
-      "destaque": false
+      "finalidade": "venda",
+      "precoLocacao": 0
     },
     {
       "tipo": "apartamento",
