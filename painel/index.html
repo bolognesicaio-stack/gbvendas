@@ -78,6 +78,7 @@ main{max-width:1180px;margin:0 auto;padding:18px 16px 110px}
 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .types{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .types button{background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px 8px;font-weight:600;font-size:15px}
+.types.fin button{padding:10px 8px;font-size:14px}
 .types button.on{border-color:var(--blue);background:#EAF0FA;color:var(--blue)}
 .types button span{display:block;font-size:26px}
 .step{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
@@ -173,6 +174,14 @@ const NUMLAB={quartos:"Dormitórios",suites:"Suítes",banheiros:"Banheiros",vaga
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const brl=n=>"R$ "+Number(n||0).toLocaleString("pt-BR");
+const FIN={venda:"Venda",locacao:"Locação",ambos:"Venda e locação"};
+const fin=i=>FIN[i.finalidade]?i.finalidade:"venda";
+function precoCard(i){
+  const f=fin(i),v=i.preco>0?brl(i.preco):"",a=i.precoLocacao>0?brl(i.precoLocacao)+"/mês":"";
+  if(f==="locacao")return a||"Sob consulta";
+  if(f==="ambos")return v&&a?v+" · "+a:(v||a||"Sob consulta");
+  return v||"Sob consulta";
+}
 const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
 
@@ -249,13 +258,13 @@ function render(){
     return `<div class="card ${mod?"mod":""}" data-k="${i.__k}">
       <div class="ph" style="${f?`background-image:url('${esc(photoUrl(f))}')`:""}">
         ${f?"":'<div class="nofoto">Sem foto</div>'}
-        <span class="tag">${esc(T.label)}</span>
+        <span class="tag">${esc(T.label)}${fin(i)!=="venda"?" · "+FIN[fin(i)]:""}</span>
         <button class="star ${i.destaque?"on":""}" data-a="star" title="Destaque no site">★</button>
         ${(i.fotos||[]).length?`<span class="nph">📷 ${i.fotos.length}</span>`:""}
       </div>
       <div class="bd"><h3>${esc(i.titulo)}</h3>
         <div class="meta">${esc(i.codigo)} · ${esc(i.bairro)}${mod?" · <b style='color:#A99917'>alterado</b>":""}</div>
-        <div class="price">${brl(i.preco)}</div></div>
+        <div class="price">${esc(precoCard(i))}</div></div>
       <div class="ft">
         <button class="btn blue sm" data-a="edit">Editar</button>
         <button class="btn line sm" data-a="dup" title="Duplicar">⧉</button>
@@ -294,7 +303,7 @@ function ask(title,msg,okLabel,fn){
 let E=null; // {it, isNew, orig}
 function openEditor(it){
   const isNew=!it;
-  E={isNew,it:isNew?{__k:++uid,tipo:"",titulo:"",bairro:"",codigo:"",preco:0,fotos:[],video:"",descricao:"",caracteristicas:[]}:JSON.parse(JSON.stringify(it)),ref:it,errs:{},pend:[]};
+  E={isNew,it:isNew?{__k:++uid,tipo:"",finalidade:"venda",titulo:"",bairro:"",codigo:"",preco:0,precoLocacao:0,fotos:[],video:"",descricao:"",caracteristicas:[]}:JSON.parse(JSON.stringify(it)),ref:it,errs:{},pend:[]};
   E.it.__k=isNew?E.it.__k:it.__k;
   drawEditor();
 }
@@ -304,6 +313,8 @@ function nextCode(tipo){
   return pre+"-"+String(mx+1).padStart(3,"0");
 }
 function suggestTitle(){
+  const t=suggestTitle0();return t+(fin(E.it)==="locacao"?" — locação":fin(E.it)==="ambos"?" — venda e locação":"")}
+function suggestTitle0(){
   const i=E.it,T=TYPES[i.tipo];if(!T)return"";
   const n=(x,s,p)=>x>0?(x+" "+(x>1?p:s)):"";
   if(i.tipo==="apartamento")return `Apartamento${i.quartos?" com "+n(i.quartos,"dormitório","dormitórios"):""} no ${i.bairro||"…"}`;
@@ -328,8 +339,14 @@ function drawEditor(keepScroll){
       <div class="row">
         <div class="f ${E.errs.bairro?"bad":""}"><label>Condomínio / região</label><select data-f="bairroSel">${bo.map(b=>`<option ${b===i.bairro&&!E.newBairro?"selected":""}>${esc(b)}</option>`).join("")}<option value="__novo" ${outro?"selected":""}>➕ Outro (digitar)</option>${!i.bairro&&!outro?'<option value="" selected disabled>Selecione…</option>':""}</select>${outro?`<input type="text" data-f="bairro" value="${esc(i.bairro)}" style="margin-top:6px" placeholder="Nome do condomínio / região">`:""}${err("bairro")}</div>
         <div class="f"><label>Código (uso interno)</label><input type="text" data-f="codigo" value="${esc(i.codigo)}"></div>
-        <div class="f ${E.errs.preco?"bad":""}"><label>Preço de venda</label><div class="money"><input type="text" inputmode="numeric" data-f="preco" value="${i.preco?Number(i.preco).toLocaleString("pt-BR"):""}" placeholder="0"></div>${err("preco")}</div>
-      </div></div>`);
+      </div>
+      <div class="f"><label>Este imóvel é para…</label><div class="types fin">${Object.entries(FIN).map(([k,v])=>`<button data-fin="${k}" class="${fin(i)===k?"on":""}">${v}</button>`).join("")}</div></div>
+      <div class="row">
+        ${fin(i)!=="locacao"?`<div class="f"><label>Preço de venda</label><div class="money"><input type="text" inputmode="numeric" data-f="preco" value="${i.preco?Number(i.preco).toLocaleString("pt-BR"):""}" placeholder="0"></div></div>`:""}
+        ${fin(i)!=="venda"?`<div class="f"><label>Valor do aluguel (por mês)</label><div class="money"><input type="text" inputmode="numeric" data-f="precoLocacao" value="${i.precoLocacao?Number(i.precoLocacao).toLocaleString("pt-BR"):""}" placeholder="0"></div></div>`:""}
+      </div>
+      <div class="h" style="margin:-4px 0 4px">Se preferir não mostrar o valor, deixe em branco: o site exibe “Sob consulta”.</div>
+      </div>`);
     sec.push(`<div class="sec"><h4>3 · Medidas e cômodos</h4><div class="row">${T.nums.map(n=>`<div class="f ${E.errs[n]?"bad":""}"><label>${n==="area"?T.areaLabel:NUMLAB[n]}</label><div class="step"><button data-step="${n}:-1">−</button><input type="text" inputmode="numeric" data-f="${n}" value="${i[n]!=null?i[n]:0}"><button data-step="${n}:1">+</button></div>${err(n)}</div>`).join("")}</div></div>`);
     sec.push(`<div class="sec"><h4>4 · Fotos</h4>
       <div class="drop" id="drop"><b>Clique aqui ou arraste as fotos</b><br><span style="font-size:13px">Pode enviar várias de uma vez. A 1ª é a capa; arraste para mudar a ordem. O painel reduz o tamanho sozinho.</span><input type="file" id="file" accept="image/*" multiple class="hide"></div>
@@ -357,7 +374,7 @@ function bindEditor(){
   ed.querySelector("[data-sug]")&&(ed.querySelector("[data-sug]").onclick=e=>{e.preventDefault();E.it.titulo=suggestTitle();drawEditor(true)});
   ed.querySelectorAll("input[data-f],textarea[data-f]").forEach(el=>{
     el.oninput=()=>{const k=el.dataset.f,i=E.it;
-      if(k==="preco"){const n=+el.value.replace(/\D/g,"");i.preco=n;el.value=n?n.toLocaleString("pt-BR"):""}
+      if(k==="preco"||k==="precoLocacao"){const n=+el.value.replace(/\D/g,"");i[k]=n;el.value=n?n.toLocaleString("pt-BR"):""}
       else if(TYPES[i.tipo].nums.includes(k)){i[k]=+el.value.replace(/\D/g,"")||0}
       else i[k]=el.value;
       if(E.errs[k]){delete E.errs[k];el.closest(".f").classList.remove("bad");const er=el.closest(".f").querySelector(".err");er&&er.remove()}};
@@ -365,6 +382,7 @@ function bindEditor(){
   });
   const bs=ed.querySelector("[data-f=bairroSel]");
   bs&&(bs.onchange=()=>{if(bs.value==="__novo"){E.it.bairro="";E.newBairro=true;drawEditor(true);const x=ed.querySelector("input[data-f=bairro]");x&&x.focus()}else{E.it.bairro=bs.value;E.newBairro=false;delete E.errs.bairro;drawEditor(true)}});
+  ed.querySelectorAll("[data-fin]").forEach(b=>b.onclick=()=>{E.it.finalidade=b.dataset.fin;drawEditor(true)});
   ed.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{const[n,d]=b.dataset.step.split(":");E.it[n]=Math.max(0,(+E.it[n]||0)+ +d);b.parentElement.querySelector("input").value=E.it[n]});
   ed.querySelectorAll("[data-car]").forEach(b=>b.onclick=()=>{const c=b.dataset.car,a=E.it.caracteristicas=E.it.caracteristicas||[];const x=a.indexOf(c);x>=0?a.splice(x,1):a.push(c);b.classList.toggle("on")});
   const d=ed.querySelector("[data-dest]");d&&(d.onclick=()=>{E.it.destaque=!E.it.destaque;d.classList.toggle("on",!!E.it.destaque)});
@@ -423,7 +441,7 @@ async function addFiles(files){
   if(fail)toast(fail+" foto(s) não puderam ser lidas (use JPG ou PNG).");
 }
 function closeEditor(){
-  if(E&&JSON.stringify(clean(E.it))!==JSON.stringify(E.isNew?clean({tipo:"",titulo:"",bairro:"",codigo:"",preco:0,fotos:[],video:"",descricao:"",caracteristicas:[]}):clean(E.ref))&&E.it.tipo){
+  if(E&&JSON.stringify(clean(E.it))!==JSON.stringify(E.isNew?clean({tipo:"",finalidade:"venda",titulo:"",bairro:"",codigo:"",preco:0,precoLocacao:0,fotos:[],video:"",descricao:"",caracteristicas:[]}):clean(E.ref))&&E.it.tipo){
     ask("Fechar sem salvar?","As mudanças deste imóvel serão perdidas.","Fechar sem salvar",()=>{$("#editor").innerHTML="";E=null});return}
   $("#editor").innerHTML="";E=null;
 }
@@ -433,7 +451,6 @@ function validate(){
   else{
     if(!i.titulo.trim())e.titulo="Informe o título.";
     if(!String(i.bairro||"").trim())e.bairro="Informe o condomínio ou região.";
-    if(!(i.preco>0))e.preco="Informe o preço.";
     if(!(i.area>0))e.area="Informe a área.";
     if(!(i.fotos&&i.fotos.length))e.fotos="Adicione pelo menos 1 foto.";
     if(!i.descricao.trim())e.descricao="Escreva a descrição.";
@@ -447,6 +464,9 @@ function saveEditor(){
   E.errs=validate();
   if(Object.keys(E.errs).length){drawEditor(true);const f=document.querySelector("#editor .bad,#editor .err");f&&f.scrollIntoView({block:"center",behavior:"smooth"});return}
   if(!i.destaque)delete i.destaque;
+  i.finalidade=fin(i);
+  if(i.finalidade==="locacao")i.preco=0;
+  if(i.finalidade==="venda")i.precoLocacao=0;
   const out=Object.assign({},i);
   if(E.isNew)["quartos","suites","banheiros","vagas","area","areaConstruida"].forEach(n=>{if(!TYPES[i.tipo].nums.includes(n))delete out[n]});
   if(E.isNew)S.items.unshift(out);else{const ix=S.items.findIndex(x=>x.__k===E.it.__k);S.items[ix]=out}
