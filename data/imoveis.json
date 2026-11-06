@@ -1,55 +1,6 @@
 {
   "imoveis": [
     {
-      "tipo": "terreno",
-      "titulo": "Lote residencial no Residencial Lagoa 2",
-      "bairro": "Residencial Lagoa",
-      "codigo": "RL-LT01",
-      "preco": 400000,
-      "quartos": 0,
-      "banheiros": 0,
-      "vagas": 0,
-      "area": 400,
-      "fotos": [
-        "https://images.unsplash.com/photo-1500382017468-9049fed747ef",
-        "https://images.unsplash.com/photo-1449844908441-8829872d2607"
-      ],
-      "descricao": "Lote plano em condomínio fechado, com toda a infraestrutura pronta para construir: água, energia, asfalto e área de lazer. Segurança 24h e ambiente familiar. Excelente valorização.",
-      "caracteristicas": [
-        "Condomínio fechado",
-        "Portaria 24h",
-        "Rua asfaltada",
-        "Água",
-        "Energia elétrica",
-        "Rede de esgoto",
-        "Terreno plano",
-        "Escritura / documentação em ordem",
-        "Aceita financiamento",
-        "Área de lazer no condomínio"
-      ],
-      "video": "",
-      "destaque": true
-    },
-    {
-      "tipo": "terreno",
-      "titulo": "Lote em condomínio no Vista Araras",
-      "bairro": "Vista Araras",
-      "codigo": "VA-LT02",
-      "preco": 260000,
-      "quartos": 0,
-      "banheiros": 0,
-      "vagas": 0,
-      "area": 360,
-      "fotos": [
-        "https://images.unsplash.com/photo-1444927714506-8492d94b5ba0",
-        "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735"
-      ],
-      "descricao": "Lote em loteamento fechado de alto padrão, com portaria, segurança e área verde. Topografia plana, pronto para o projeto dos seus sonhos.",
-      "caracteristicas": [],
-      "video": "",
-      "destaque": false
-    },
-    {
       "tipo": "casa",
       "titulo": "Casa de alto padrão no Vista Araras",
       "bairro": "Vista Araras",
@@ -95,7 +46,7 @@
       "titulo": "Apartamento no Condomínio Plaza Alta",
       "bairro": "Plaza Alta",
       "codigo": "PA-AP01",
-      "preco": 420000,
+      "preco": 900000,
       "quartos": 3,
       "suites": 0,
       "banheiros": 2,
@@ -109,14 +60,15 @@
       "descricao": "Apartamento amplo com 3 dormitórios (1 suíte), varanda e 2 vagas. Condomínio com lazer completo: piscina, academia e salão de festas. Ótima localização.",
       "caracteristicas": [],
       "video": "",
-      "destaque": false
+      "finalidade": "venda",
+      "precoLocacao": 0
     },
     {
       "tipo": "apartamento",
       "titulo": "Apartamento com vista no Mirante da Lagoa",
       "bairro": "Mirante da Lagoa",
       "codigo": "ML-AP01",
-      "preco": 480000,
+      "preco": 400000,
       "quartos": 3,
       "suites": 0,
       "banheiros": 2,
@@ -129,7 +81,9 @@
       "descricao": "Apartamento com linda vista para a lagoa, 3 dormitórios com suíte, varanda gourmet e 2 vagas. Condomínio moderno com infraestrutura de lazer completa.",
       "caracteristicas": [],
       "video": "",
-      "destaque": true
+      "destaque": true,
+      "finalidade": "venda",
+      "precoLocacao": 0
     },
     {
       "tipo": "apartamento",
