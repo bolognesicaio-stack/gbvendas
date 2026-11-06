@@ -159,7 +159,7 @@
       "titulo": "Galpão industrial na SP-330 — locação",
       "bairro": "Rodovia Anhanguera (SP-330)",
       "codigo": "IN-330A",
-      "preco": 40000000,
+      "preco": 0,
       "quartos": 0,
       "suites": null,
       "banheiros": 2,
@@ -187,7 +187,8 @@
       ],
       "video": "",
       "destaque": true,
-      "areaConstruida": 8200
+      "areaConstruida": 8200,
+      "finalidade": "locacao"
     },
     {
       "tipo": "industrial",
