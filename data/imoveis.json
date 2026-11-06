@@ -1,6 +1,35 @@
 {
   "imoveis": [
     {
+      "tipo": "industrial",
+      "finalidade": "venda",
+      "titulo": "Área Comercial/industrial na rodovia Anhanguera Sp-330",
+      "bairro": "Rodovia Anhanguera (SP-330)",
+      "codigo": "IN-001",
+      "preco": 0,
+      "precoLocacao": 0,
+      "fotos": [
+        "/images/imoveis/in-001-mw5d5xyq39j.webp",
+        "/images/imoveis/in-001-mw5d5xo244h.webp",
+        "/images/imoveis/in-001-mw5d5xrkrrl.webp"
+      ],
+      "video": "https://www.youtube.com/embed/hBt2e8Ur5uc",
+      "descricao": "Localização estratégica no principal eixo logístico entre a capital e o interior de São Paulo.\n\n✅ 16.000 m² de área total\n✅ Frente para a Rodovia Anhanguera — visibilidade e acesso direto\n✅ Perfeita para logística, indústria ou centro de distribuição\n✅ Vizinha de operações como CD Savegnago e Apti Alimentos\n\nLocalização no google maps : https://maps.app.goo.gl/RrGbr369vDUtnSNf9",
+      "caracteristicas": [
+        "Acesso à Rodovia Anhanguera",
+        "Terreno plano",
+        "Água",
+        "Rede de esgoto",
+        "Pátio de manobras",
+        "Zoneamento industrial",
+        "Escritura / documentação em ordem"
+      ],
+      "area": 16000,
+      "areaConstruida": 0,
+      "vagas": 0,
+      "destaque": true
+    },
+    {
       "tipo": "casa",
       "titulo": "Casa de alto padrão no Vista Araras",
       "bairro": "Vista Araras",
