@@ -156,24 +156,38 @@
     },
     {
       "tipo": "industrial",
-      "titulo": "Galpão industrial na SP-330 — venda e locação",
+      "titulo": "Galpão industrial na SP-330 — locação",
       "bairro": "Rodovia Anhanguera (SP-330)",
       "codigo": "IN-330A",
-      "preco": 2500000,
+      "preco": 40000000,
       "quartos": 0,
       "suites": null,
       "banheiros": 2,
-      "vagas": 12,
-      "area": 1500,
+      "vagas": 70,
+      "area": 52000,
       "fotos": [
-        "https://images.unsplash.com/photo-1553413077-190dd305871c",
-        "https://images.unsplash.com/photo-1581092160562-40aa08e78837"
+        "/images/imoveis/in-330a-mw56rwkbcwf.webp",
+        "/images/imoveis/in-330a-mw56rw7a4af.webp",
+        "/images/imoveis/in-330a-mw56rwbonrz.webp",
+        "/images/imoveis/in-330a-mw56rwg2l7w.webp"
       ],
-      "descricao": "Galpão de 1.500 m² com pátio de manobra, doca de carga, escritório e energia trifásica. Localização estratégica com acesso direto à Rodovia Anhanguera (SP-330).\n\nDisponível para VENDA (R$ 2.500.000) ou LOCAÇÃO (R$ 18.000/mês). Ideal para logística, indústria ou distribuição.",
-      "caracteristicas": [],
+      "descricao": "Galpão de 8.200 m² com pátio de manobra, escritório.\n\nLocalização estratégica com acesso direto à Rodovia Anhanguera (SP-330).\n\nLOCAÇÃO. \nIdeal para logística, indústria ou distribuição.",
+      "caracteristicas": [
+        "Acesso à Rodovia Anhanguera",
+        "Terreno plano",
+        "Piso industrial",
+        "Portaria / segurança",
+        "Zoneamento industrial",
+        "Escritório",
+        "Pátio de manobras",
+        "Água",
+        "Rede de esgoto",
+        "Escritura / documentação em ordem",
+        "Pé-direito alto"
+      ],
       "video": "",
       "destaque": true,
-      "areaConstruida": null
+      "areaConstruida": 8200
     },
     {
       "tipo": "industrial",
