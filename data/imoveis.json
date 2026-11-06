@@ -212,21 +212,33 @@
       "titulo": "Área comercial na SP-330 — Venda",
       "bairro": "Rodovia Anhanguera (SP-330)",
       "codigo": "CM-330B",
-      "preco": 330,
+      "preco": 0,
       "quartos": null,
       "suites": null,
       "banheiros": null,
       "vagas": null,
       "area": 50000,
       "fotos": [
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
-        "https://images.unsplash.com/photo-1497366216548-37526070297c"
+        "/images/imoveis/cm-330b-mw57lr8c358.webp",
+        "/images/imoveis/cm-330b-mw57r9y2fuu.webp",
+        "/images/imoveis/cm-330b-mw57rdg4whk.webp",
+        "/images/imoveis/cm-330b-mw57rib54xg.webp"
       ],
-      "descricao": "Imóvel comercial com ampla frente para a rodovia, ideal para showroom, loja, distribuidora ou serviços. Grande fluxo de veículos e estacionamento.\n\nDisponível para VENDA (R$ 1.200.000) ou LOCAÇÃO (R$ 9.500/mês).",
-      "caracteristicas": [],
-      "video": "",
-      "destaque": false,
-      "areaConstruida": null
+      "descricao": "ÁREA DE 50.000 M² NA BEIRA DA ANHANGUERA (SP-330) — Araras-SP \n\nLocalização estratégica no principal eixo logístico entre a capital e o interior de São Paulo.\n\n✅ 50.000 m² de área total\n✅ Frente para a Rodovia Anhanguera — visibilidade e acesso direto\n✅ Perfeita para logística, indústria ou centro de distribuição\n✅ Vizinha de operações como CD Savegnago e Apti Alimentos\n\nLocalização no google maps: https://maps.app.goo.gl/GoFDukWu7yzgYtBT8",
+      "caracteristicas": [
+        "Acesso à Rodovia Anhanguera",
+        "Terreno plano",
+        "Água",
+        "Rede de esgoto",
+        "Escritura / documentação em ordem",
+        "Zoneamento industrial",
+        "Pátio de manobras"
+      ],
+      "video": "https://www.youtube.com/embed/__XuBf04yF8",
+      "destaque": true,
+      "areaConstruida": null,
+      "finalidade": "venda",
+      "precoLocacao": 0
     }
   ]
 }
