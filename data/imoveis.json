@@ -54,7 +54,7 @@
       "titulo": "Casa de alto padrão no Vista Araras",
       "bairro": "Vista Araras",
       "codigo": "VA-CA01",
-      "preco": 2500000,
+      "preco": 2600000,
       "quartos": 3,
       "suites": 3,
       "banheiros": 4,
@@ -68,10 +68,27 @@
         "/images/imoveis/SUITE 03_Cena12.png"
       ],
       "descricao": "Casa térrea moderna em condomínio fechado, com 3 suítes, piscina e área gourmet completa. \nAcabamento de alto padrão.\n\nAT: 360 m2\n\nAC: 230 m2\n\n\n-02 vagas garagem coberta;\n\n-Escritório;\n\n-Sala de Estar/TV/Jantar e Cozinha Gourmet integrados;\n\n-Lavabo;\n\n-3 Suítes, sendo 1 com closet;\n\n-Área de Serviço;\n\n-Piscina com praia;\n\n-Banheiro externo e -Quarto de despejo.\n\nProjeto Arquiteta Natália Sundfeld",
-      "caracteristicas": [],
+      "caracteristicas": [
+        "Condomínio fechado",
+        "Portaria 24h",
+        "Piscina",
+        "Churrasqueira",
+        "Área gourmet",
+        "Armários planejados",
+        "Closet",
+        "Escritório",
+        "Quintal",
+        "Jardim",
+        "Energia solar",
+        "Aquecimento solar",
+        "Ar-condicionado",
+        "Câmeras de segurança"
+      ],
       "video": "",
       "destaque": true,
-      "areaConstruida": 230
+      "areaConstruida": 230,
+      "finalidade": "venda",
+      "precoLocacao": 0
     },
     {
       "tipo": "apartamento",
