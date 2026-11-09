@@ -133,6 +133,33 @@
     },
     {
       "tipo": "apartamento",
+      "titulo": "Apartamento no Residencial Jacarandás",
+      "bairro": "Jacarandás",
+      "codigo": "JA-AP01",
+      "preco": 350000,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 1,
+      "area": 62,
+      "fotos": [
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
+        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0"
+      ],
+      "descricao": "Apartamento pronto para morar com 2 dormitórios, cozinha planejada e lazer no condomínio. Excelente primeiro imóvel ou investimento. Aceita financiamento e FGTS.",
+      "caracteristicas": [
+        "Portaria 24h",
+        "Elevador",
+        "Piscina",
+        "Academia",
+        "Salão de festas"
+      ],
+      "video": "",
+      "finalidade": "venda",
+      "precoLocacao": 0
+    },
+    {
+      "tipo": "apartamento",
       "titulo": "Apartamento com vista no Mirante da Lagoa",
       "bairro": "Mirante da Lagoa",
       "codigo": "Mirante 5º ANDAR",
@@ -174,33 +201,6 @@
       ],
       "video": "",
       "destaque": true,
-      "finalidade": "venda",
-      "precoLocacao": 0
-    },
-    {
-      "tipo": "apartamento",
-      "titulo": "Apartamento no Residencial Jacarandás",
-      "bairro": "Jacarandás",
-      "codigo": "JA-AP01",
-      "preco": 350000,
-      "quartos": 2,
-      "suites": 0,
-      "banheiros": 1,
-      "vagas": 1,
-      "area": 62,
-      "fotos": [
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0"
-      ],
-      "descricao": "Apartamento pronto para morar com 2 dormitórios, cozinha planejada e lazer no condomínio. Excelente primeiro imóvel ou investimento. Aceita financiamento e FGTS.",
-      "caracteristicas": [
-        "Portaria 24h",
-        "Elevador",
-        "Piscina",
-        "Academia",
-        "Salão de festas"
-      ],
-      "video": "",
       "finalidade": "venda",
       "precoLocacao": 0
     },
