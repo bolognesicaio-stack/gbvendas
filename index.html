@@ -1121,11 +1121,15 @@ function injectJsonLd(){
        "inLanguage":"pt-BR","publisher":{"@id":CONFIG.dominio+"/#org"}},
       {"@type":"FAQPage","mainEntity":FAQS.map(f=>({"@type":"Question","name":f.q,
         "acceptedAnswer":{"@type":"Answer","text":f.a}}))},
-      {"@type":"ItemList","itemListElement":IMOVEIS.map((im,idx)=>({"@type":"ListItem","position":idx+1,
-        "item":{"@type":"Product","name":im.titulo,"sku":im.codigo,
-          "description":im.descricao,"image":im.fotos[0],
-          "offers":{"@type":"Offer","businessFunction":finalidade(im)==="locacao"?"http://purl.org/goodrelations/v1#LeaseOut":"http://purl.org/goodrelations/v1#Sell",...((finalidade(im)==="locacao"?im.precoLocacao:im.preco)>0?{"price":finalidade(im)==="locacao"?im.precoLocacao:im.preco}:{}),"priceCurrency":"BRL","availability":"https://schema.org/InStock",
-            "areaServed":im.bairro+", Araras-SP"}}}))}
+      {"@type":"ItemList","itemListElement":IMOVEIS.map((im,idx)=>{
+        const loc=finalidade(im)==="locacao", pr=loc?im.precoLocacao:im.preco;
+        const item={"@type":"RealEstateListing","name":im.titulo,"identifier":im.codigo,
+          "description":im.descricao,"url":CONFIG.dominio+"/#imoveis",
+          "contentLocation":{"@type":"Place","name":im.bairro+", Araras-SP"}};
+        if(im.fotos&&im.fotos[0])item.image=im.fotos[0];
+        if(pr>0)item.offers={"@type":"Offer","price":pr,"priceCurrency":"BRL","availability":"https://schema.org/InStock",
+          "businessFunction":loc?"http://purl.org/goodrelations/v1#LeaseOut":"http://purl.org/goodrelations/v1#Sell"};
+        return {"@type":"ListItem","position":idx+1,"item":item};})}
     ]
   };
   const s=document.createElement("script");s.type="application/ld+json";s.textContent=JSON.stringify(ld);document.head.appendChild(s);
