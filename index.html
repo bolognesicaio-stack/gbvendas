@@ -831,12 +831,19 @@ function specIcon(im){
 }
 function render(){
   const g=document.getElementById("grid");
-  const list=IMOVEIS.filter(i=>
+  let list=IMOVEIS.filter(i=>
     (!filtro.tipo||i.tipo===filtro.tipo)&&
     (!filtro.fin||finalidade(i)!=="venda")&&
     (!filtro.bairro||i.bairro===filtro.bairro)&&
     (!filtro.preco||(temVenda(i)&&i.preco<=+filtro.preco)));
-  g.innerHTML = list.length ? "" : '<div class="empty">Nenhum imóvel encontrado com esses filtros. Fale com a gente no WhatsApp que buscamos uma opção para você.</div>';
+  let aviso="";
+  /* categoria sem imóveis no momento (ex.: veio de um anúncio de lotes): mostra as outras opções em vez de uma lista vazia */
+  if(!list.length && (filtro.tipo||filtro.fin) && !filtro.bairro && !filtro.preco && IMOVEIS.length){
+    const nome = filtro.fin ? "imóveis para locação" : ({apartamento:"apartamentos",casa:"casas",terreno:"terrenos e lotes",industrial:"áreas comerciais e industriais"})[filtro.tipo];
+    aviso='<div class="empty" style="grid-column:1/-1">No momento não temos '+nome+' disponíveis no site — veja abaixo as outras opções ou fale com um corretor, que buscamos o imóvel ideal para você.</div>';
+    list=IMOVEIS.slice();
+  }
+  g.innerHTML = list.length ? aviso : '<div class="empty">Nenhum imóvel encontrado com esses filtros. Fale com a gente no WhatsApp que buscamos uma opção para você.</div>';
   list.forEach(im=>{
     const card=document.createElement("article");card.className="card";
     card.innerHTML=`
