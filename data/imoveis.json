@@ -251,7 +251,8 @@
       ],
       "video": "",
       "finalidade": "venda",
-      "precoLocacao": 0
+      "precoLocacao": 0,
+      "destaque": true
     },
     {
       "tipo": "industrial",
