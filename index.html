@@ -4,6 +4,14 @@
 <meta name="google-site-verification" content="d07OCuxqCRApbhBlMo5Q4QNQiVHlM3Q21KYE1nycaS8" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Tag do Google (Google Ads AW-1006362453) — mede leads e cliques no WhatsApp vindos dos anúncios -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1006362453"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-1006362453');
+</script>
 
 <!-- ============================================================= -->
 <!--  SEO PRINCIPAL  (edite conforme sua empresa e domínio)        -->
@@ -434,6 +442,7 @@ footer.site a:hover{color:var(--amber)}
       <button class="tab" data-tipo="casa">Casas</button>
       <button class="tab" data-tipo="terreno">Lotes</button>
       <button class="tab" data-tipo="industrial">Comercial / Industrial</button>
+      <button class="tab" data-tipo="" data-fin="locacao">Para alugar</button>
     </div>
     <div class="grid" id="grid"></div>
   </div>
@@ -768,7 +777,31 @@ document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("heroBg").style.backgroundImage="url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=60')";
 
 /* ---- filtros / estado ---- */
-let filtro = {tipo:"", bairro:"", preco:""};
+let filtro = {tipo:"", bairro:"", preco:"", fin:""};
+
+/* ---- medição de conversões (Google Ads) ---- */
+const CONV = {lead:"AW-1006362453/ck8ICLbOzrYdENW-798D", whatsapp:"AW-1006362453/yYCzCLnOzrYdENW-798D"};
+const convFeitas = {};
+function conversao(tipo){
+  if(convFeitas[tipo]) return; convFeitas[tipo]=true;
+  try{ if(typeof gtag==="function") gtag('event','conversion',{'send_to':CONV[tipo]}); }catch(e){}
+}
+/* qualquer link de WhatsApp clicado no site conta como contato */
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href*="wa.me"]'); if(a) conversao("whatsapp");},true);
+
+/* ---- filtro vindo do endereço (anúncios e sitelinks): ?tipo=casa | apartamento | terreno | industrial  e  ?fin=locacao ---- */
+(function(){
+  try{
+    const p=new URLSearchParams(location.search);
+    const t=p.get("tipo"), f=p.get("fin");
+    if(t && ["apartamento","casa","terreno","industrial"].includes(t)) filtro.tipo=t;
+    if(f==="locacao") filtro.fin="locacao";
+  }catch(e){}
+})();
+function syncTabs(){
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",
+    filtro.fin ? x.dataset.fin===filtro.fin : (!x.dataset.fin && x.dataset.tipo===filtro.tipo)));
+}
 
 /* ---- inicialização (roda depois de carregar os imóveis) ---- */
 function initImoveis(){
@@ -782,6 +815,7 @@ function initImoveis(){
   bairros.forEach(b=>{const btn=document.createElement("button");btn.textContent=b;
     btn.onclick=()=>{filtro.bairro=b;selBairro.value=b;document.getElementById("imoveis").scrollIntoView({behavior:"smooth"});render();};
     chips.appendChild(btn);});
+  document.getElementById("fTipo").value=filtro.tipo; syncTabs();
   render();
   injectJsonLd();
 }
@@ -799,6 +833,7 @@ function render(){
   const g=document.getElementById("grid");
   const list=IMOVEIS.filter(i=>
     (!filtro.tipo||i.tipo===filtro.tipo)&&
+    (!filtro.fin||finalidade(i)!=="venda")&&
     (!filtro.bairro||i.bairro===filtro.bairro)&&
     (!filtro.preco||(temVenda(i)&&i.preco<=+filtro.preco)));
   g.innerHTML = list.length ? "" : '<div class="empty">Nenhum imóvel encontrado com esses filtros. Fale com a gente no WhatsApp que buscamos uma opção para você.</div>';
@@ -928,14 +963,15 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
 /* ---- tabs e busca ---- */
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-  t.classList.add("active");filtro.tipo=t.dataset.tipo;document.getElementById("fTipo").value=t.dataset.tipo;render();
+  filtro.tipo=t.dataset.tipo; filtro.fin=t.dataset.fin||"";
+  document.getElementById("fTipo").value=t.dataset.tipo; syncTabs(); render();
 });
 document.getElementById("btnBuscar").onclick=()=>{
   filtro.tipo=document.getElementById("fTipo").value;
   filtro.bairro=document.getElementById("fBairro").value;
   filtro.preco=document.getElementById("fPreco").value;
-  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.tipo===filtro.tipo));
+  filtro.fin="";
+  syncTabs();
   document.getElementById("imoveis").scrollIntoView({behavior:"smooth"});render();
 };
 
@@ -1035,6 +1071,7 @@ function runStep(){
 const leadId = "L"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function corretorDoLead(){ return (lead.tipo==="Apartamento") ? "Apartamentos" : "Geral"; }
 function sendLead(status){
+  if(status==="completo") conversao("lead");
   if(!CONFIG.leadsUrl) return;
   try{
     const payload=Object.assign({id:leadId,status:status,corretor:corretorDoLead(),pagina:location.href,ts:new Date().toISOString()},lead);
@@ -1090,7 +1127,7 @@ function handoff(direct){
     const link="https://wa.me/"+numCorretor+"?text="+resumo;
     const b=document.createElement("button");
     b.className="btn btn-wa";b.style.margin="4px 18px 14px";b.textContent="Falar com o corretor no WhatsApp ➜";
-    b.onclick=()=>window.open(link,"_blank");
+    b.onclick=()=>{conversao("whatsapp");window.open(link,"_blank");};
     body.appendChild(b);body.scrollTop=body.scrollHeight;
   });
 }
